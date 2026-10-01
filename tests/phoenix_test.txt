@@ -1,0 +1,1 @@
+Phoenix AI is a modular agentic AI system. The Orchestrator Agent coordinates specialized agents including the RAG Agent, Research Agent, Planning Agent, Memory Agent, Application Control Agent, and Computer Vision Agent.

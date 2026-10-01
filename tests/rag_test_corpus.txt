@@ -1,0 +1,45 @@
+PHOENIX AI ARCHITECTURE
+
+Phoenix AI is a modular agentic AI system designed to coordinate multiple specialized AI agents.
+
+The Orchestrator Agent is the central controller of Phoenix AI. It receives user requests, determines the required task, and delegates work to specialized agents.
+
+The RAG Agent is responsible for document ingestion, document retrieval, context construction, and answering questions using information contained in user documents.
+
+The Research Agent performs external research and gathers information from available research sources.
+
+The Planning Agent decomposes complex user requests into multiple executable steps and coordinates task execution.
+
+The Memory Agent manages persistent and conversational memory for Phoenix AI.
+
+The Application Control Agent interacts with approved desktop applications such as Excel, PowerPoint, Word, Power BI, Jupyter Notebook, and other supported applications.
+
+The Computer Vision Agent handles image understanding, visual analysis, OCR, screenshots, and other computer vision capabilities.
+
+RAG TECHNOLOGY
+
+Phoenix AI uses Qdrant as its vector database. Documents are converted into chunks and embedded using the Ollama nomic-embed-text embedding model.
+
+The embedding model generates 768-dimensional vectors. These vectors are stored in Qdrant for semantic retrieval.
+
+Phoenix AI also uses BM25 keyword retrieval. BM25 is useful for exact terms such as Qwen3, Qdrant, Power BI, ETAS INCA, NRTC, KDI 1903, and specific project names.
+
+Dense retrieval and BM25 retrieval are combined using Reciprocal Rank Fusion.
+
+RRF combines rankings from multiple retrieval systems without requiring their raw scores to be on the same scale.
+
+LLM ARCHITECTURE
+
+The default local language model for Phoenix AI is Qwen3 4B Instruct running through Ollama.
+
+Phoenix AI can later route requests to external providers such as Gemini or other supported LLM APIs when configured.
+
+The Orchestrator decides which specialized agent should handle a task.
+
+APPLICATION AUTOMATION
+
+The Application Control Agent can locate files, open applications, create folders, manipulate documents, work with Excel spreadsheets, prepare PowerPoint presentations, work with Word documents, and interact with Jupyter Notebook.
+
+Before performing potentially destructive or important actions, Phoenix AI can request user approval.
+
+Phoenix AI should provide suggestions when it detects a better approach, missing information, or potential problems in a requested workflow.
