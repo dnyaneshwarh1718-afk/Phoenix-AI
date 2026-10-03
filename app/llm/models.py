@@ -14,6 +14,8 @@ class ModelRequest:
 
     temperature: float | None = None
     max_tokens: int | None = None
+    # Request provider-side structured JSON output when supported.
+    json_mode: bool = False
 
     task_type: str = "general"
 
