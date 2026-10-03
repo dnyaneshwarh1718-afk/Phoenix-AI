@@ -54,7 +54,37 @@ class PhoenixOrchestrator:
             "metadata": dict(metadata or {}),
         }
         logger.info("Phoenix request started: request_id=%s", request_id)
-        return await self.graph.ainvoke(state)
+        result = await self.graph.ainvoke(state)
+
+        # The orchestrator owns the final API contract. Keep this boundary
+        # normalization independent from individual graph nodes so a graph
+        # refactor cannot silently drop planning metadata.
+        if result.get("intent") == "planning":
+            self._finalize_planning_contract(result)
+
+        return result
+
+    @staticmethod
+    def _finalize_planning_contract(state: dict) -> None:
+        """Normalize the stable planning response contract in-place."""
+        metadata = state.setdefault("metadata", {})
+        plan = metadata.get("plan")
+
+        step_count = metadata.get("step_count")
+        if not isinstance(step_count, int) or isinstance(step_count, bool) or step_count < 0:
+            step_count = None
+
+        if step_count is None and isinstance(plan, dict):
+            steps = plan.get("steps")
+            if isinstance(steps, (list, tuple)):
+                step_count = len(steps)
+
+        # Never invent a step count for a failed/invalid plan.
+        if step_count is not None:
+            metadata["step_count"] = step_count
+
+        metadata.setdefault("planning", True)
+        metadata.setdefault("status", "ready")
 
     async def execute_general(self, state: dict) -> dict:
         response = await self.llm.chat(
@@ -72,6 +102,7 @@ class PhoenixOrchestrator:
 
     async def execute_specialized(self, state: dict) -> dict:
         agent_name = state["selected_agent"]
+
         if agent_name not in self.agents:
             return await self.execute_general(state)
 
@@ -81,9 +112,27 @@ class PhoenixOrchestrator:
             project_id=state.get("project_id"),
             metadata=state.get("metadata", {}),
         )
-        result = await self.agents[agent_name].run(state["user_message"], context)
+
+        result = await self.agents[agent_name].run(
+            state["user_message"],
+            context,
+        )
+
         state["response"] = result.content
-        state["metadata"].update(result.data)
+
+        # --------------------------------------------------
+        # Merge agent result data
+        # --------------------------------------------------
+
+        result_data = dict(result.data or {})
+
+        state["metadata"].update(result_data)
+
+        # --------------------------------------------------
+        # Agent failure handling
+        # --------------------------------------------------
+
         if not result.success:
             state["error"] = result.error
+
         return state
