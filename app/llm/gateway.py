@@ -121,6 +121,15 @@ class LLMGateway:
             },
         }
 
+        # Ollama supports provider-side JSON mode. This is stronger than
+        # prompt-only JSON instructions and prevents the planning agent from
+        # receiving prose/fenced output that cannot be validated.
+        if request.json_mode:
+            payload["format"] = "json"
+
+        if request.max_tokens is not None:
+            payload["options"]["num_predict"] = request.max_tokens
+
         try:
 
             async with httpx.AsyncClient(
@@ -261,6 +270,9 @@ class LLMGateway:
             payload[
                 "systemInstruction"
             ] = system_instruction
+
+        if request.json_mode:
+            payload["generationConfig"]["responseMimeType"] = "application/json"
 
         try:
 
