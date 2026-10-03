@@ -21,61 +21,120 @@ class PlanningAgent(BaseAgent):
         self.max_steps = max(1, min(30, max_steps))
 
     async def run(self, message: str, context: AgentContext) -> AgentResult:
+        """Generate and validate a structured execution plan.
+
+        Planning is deliberately fail-closed: malformed or cyclic model output
+        is never converted into a successful plan. Up to three provider calls are allowed: one initial generation and two
+        targeted repair attempts. If the final output is still invalid, the
+        request fails closed with the validation error.
+        """
         goal = (message or "").strip()
         if not goal:
-            return AgentResult(False, error="Planning goal cannot be empty.", data={"status": "invalid"})
+            return AgentResult(
+                False,
+                error="Planning goal cannot be empty.",
+                data={"status": "invalid"},
+            )
 
         prompt = self._build_prompt(goal, context)
-        try:
-            response = await self.llm.chat(
-                ModelRequest(
-                    messages=[
-                        {"role": "system", "content": self._system_prompt()},
-                        {"role": "user", "content": prompt},
-                    ],
-                    task_type="reasoning",
-                    temperature=0.1,
+        last_error: Exception | None = None
+        response = None
+
+        # Local Ollama models can occasionally emit a malformed/truncated
+        # JSON object even with a strict prompt. Three bounded attempts make
+        # the live API resilient without turning invalid plans into success.
+        for attempt in range(3):
+            try:
+                response = await self.llm.chat(
+                    ModelRequest(
+                        messages=[
+                            {"role": "system", "content": self._system_prompt()},
+                            {"role": "user", "content": prompt},
+                        ],
+                        task_type="reasoning",
+                        temperature=0.1,
+                        max_tokens=2048,
+                        json_mode=True,
+                    )
                 )
-            )
-        except Exception as exc:
-            # A planning failure must never be silently presented as a valid plan.
-            return AgentResult(
-                False,
-                content="I could not create a reliable execution plan because the planning model was unavailable.",
-                data={"status": "llm_failed"},
-                error=f"Planning model failed: {exc}",
-            )
+            except Exception as exc:
+                return AgentResult(
+                    False,
+                    content=(
+                        "I could not create a reliable execution plan because "
+                        "the planning model was unavailable."
+                    ),
+                    data={"status": "llm_failed"},
+                    error=f"Planning model failed: {exc}",
+                )
 
-        try:
-            plan = self._parse_plan(response.content, goal)
-        except ValueError as exc:
-            return AgentResult(
-                False,
-                content="The planning model returned an invalid execution plan.",
-                data={"status": "invalid_plan", "llm_provider": response.provider, "llm_model": response.model},
-                error=str(exc),
-            )
+            try:
+                plan = self._parse_plan(response.content, goal)
+                valid, errors = plan.validate()
+                if not valid:
+                    raise ValueError("; ".join(errors))
 
-        valid, errors = plan.validate()
-        if not valid:
-            return AgentResult(
-                False,
-                content="The generated execution plan failed validation and was not approved for execution.",
-                data={"status": "invalid_plan", "plan": plan.to_dict(), "validation_errors": errors},
-                error="; ".join(errors),
-            )
+                return AgentResult(
+                    True,
+                    content=self._render(plan),
+                    data={
+                        "status": plan.status.value,
+                        "plan": plan.to_dict(),
+                        "step_count": len(plan.steps),
+                        "planning": True,
+                        "llm_provider": response.provider,
+                        "llm_model": response.model,
+                    },
+                )
+            except ValueError as exc:
+                last_error = exc
+                if attempt < 2:
+                    prompt = self._build_repair_prompt(
+                        goal,
+                        context,
+                        response.content,
+                        str(exc),
+                        attempt=attempt + 1,
+                    )
 
-        rendered = self._render(plan)
+        # Fail closed. An invalid plan must remain a failed planning result;
+        # otherwise downstream components could mistake a blocked fallback for
+        # an approved execution plan.
         return AgentResult(
-            True,
-            content=rendered,
+            False,
+            content="The planning model returned an invalid execution plan.",
             data={
-                "status": plan.status.value,
-                "plan": plan.to_dict(),
-                "step_count": len(plan.steps),
-                "llm_provider": response.provider,
-                "llm_model": response.model,
+                "status": "invalid_plan",
+                "planning": True,
+                "llm_provider": getattr(response, "provider", None),
+                "llm_model": getattr(response, "model", None),
             },
+            error=str(last_error or "Planner output could not be validated."),
+        )
+
+    def _build_repair_prompt(
+        self,
+        goal: str,
+        context: AgentContext,
+        previous_output: str,
+        error: str,
+        *,
+        attempt: int = 1,
+    ) -> str:
+        """Ask the model to repair only the structured planning output."""
+        metadata = context.metadata or {}
+        available = metadata.get("available_tools", [])
+        return (
+            f"User goal:\n{goal}\n\n"
+            f"Available tools/context:\n"
+            f"{json.dumps(available, ensure_ascii=False, default=str)}\n\n"
+            f"Previous planner output:\n{previous_output}\n\n"
+            f"Validation/parsing error:\n{error}\n\n"
+            f"This is repair attempt {attempt}. Preserve the user goal, but "
+            "fix every validation error before returning. In particular, "
+            "dependencies must form an acyclic graph and every referenced "
+            "step ID must exist. Return ONLY one valid JSON object matching "
+            "the exact schema in the system prompt. Do not add markdown or prose."
         )
 
     @staticmethod
