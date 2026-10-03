@@ -39,6 +39,11 @@ class Settings(BaseSettings):
     research_max_sources: int = 6
     research_timeout_seconds: float = 15.0
 
+    # MEMORY
+    memory_database_path: str = "data/phoenix_memory.db"
+    memory_max_results: int = 8
+    memory_auto_capture: bool = True
+
     # SECURITY
     require_approval_for_tools: bool = True
     max_tool_calls_per_task: int = 20

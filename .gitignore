@@ -1,16 +1,47 @@
-.venv/
+# Python
 __pycache__/
 *.py[cod]
-.pytest_cache/
+*.pyo
+.venv/
+venv/
+
+# Environment / secrets
 .env
 .env.*
 !.env.example
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
 .vscode/
 .idea/
-data/indexes/
-data/runtime/
-logs/
+
+# Logs
 *.log
-dist/
-build/
-*.egg-info/
+
+# Local databases / indexes
+data/vector_db/
+data/chroma/
+data/qdrant/
+*.db
+*.sqlite
+*.sqlite3
+
+# Python tooling
+.mypy_cache/
+.ruff_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.temp
+
+# Local model/cache files
+models/
+.cache/

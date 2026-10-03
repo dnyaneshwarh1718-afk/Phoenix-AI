@@ -9,6 +9,7 @@ class AgentContext:
     user_id: str = "default"
     project_id: str | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
+    memory_context: list[dict[str, Any]] = field(default_factory=list)
 
 
 @dataclass

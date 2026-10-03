@@ -12,3 +12,4 @@ class PhoenixState(TypedDict, total=False):
     response: str
     error: str | None
     metadata: dict[str, Any]
+    memory_context: list[dict[str, Any]]

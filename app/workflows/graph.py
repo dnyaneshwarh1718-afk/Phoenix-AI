@@ -48,6 +48,11 @@ def build_phoenix_graph(orchestrator):
     )
 
     graph.add_node(
+        "load_memory",
+        _build_memory_node(orchestrator),
+    )
+
+    graph.add_node(
         "route",
         _route,
     )
@@ -73,6 +78,11 @@ def build_phoenix_graph(orchestrator):
 
     graph.add_edge(
         "classify",
+        "load_memory",
+    )
+
+    graph.add_edge(
+        "load_memory",
         "route",
     )
 
@@ -124,6 +134,48 @@ def _build_classify_node(orchestrator):
         }
 
     return classify
+
+
+# ======================================================================
+# MEMORY
+# ======================================================================
+
+
+def _build_memory_node(orchestrator):
+    """Retrieve relevant prior memory before planning/agent execution."""
+
+    def load_memory(state: PhoenixState) -> PhoenixState:
+        if not orchestrator.settings.memory_auto_capture:
+            return {**state, "memory_context": []}
+
+        try:
+            records = orchestrator.memory_store.search(
+                user_id=state.get("user_id", "default"),
+                project_id=state.get("project_id"),
+                query=state["user_message"],
+                limit=orchestrator.settings.memory_max_results,
+            )
+            context = [
+                {
+                    "memory_id": record.memory_id,
+                    "kind": record.kind,
+                    "content": record.content,
+                    "importance": record.importance,
+                    "created_at": record.created_at,
+                }
+                for record in records
+            ]
+            metadata = dict(state.get("metadata") or {})
+            metadata["memory_retrieved"] = len(context)
+            return {**state, "memory_context": context, "metadata": metadata}
+        except Exception as exc:
+            metadata = dict(state.get("metadata") or {})
+            metadata["memory_retrieved"] = 0
+            metadata["memory_status"] = "unavailable"
+            metadata["memory_error"] = f"{type(exc).__name__}: {exc}"
+            return {**state, "memory_context": [], "metadata": metadata}
+
+    return load_memory
 
 
 # ======================================================================
@@ -580,4 +632,5 @@ def _agent_context(
             )
             or {}
         ),
+        memory_context=list(state.get("memory_context") or []),
     )

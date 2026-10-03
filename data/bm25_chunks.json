@@ -1,0 +1,142 @@
+[
+  {
+    "chunk_id": "93d6fca9c446b0961fd12522",
+    "document_id": "e5b4490f920bfe57",
+    "text": "SQL INTERVIEW QUESTIONS\nWhat is the difference between DELETE, TRUNCATE, and DROP in SQL?\nAns: \nDELETE\nRemoves specific rows from a table using a WHERE clause.\nIt is DML (Data Manipulation Language).\nCan be rolled back if inside a transaction.\nExample: DELETE FROM Employees WHERE id = 5;\nTRUNCATE\nRemoves all rows from a table but keeps the structure intact.\nIt is DDL (Data Definition Language).\nFaster than DELETE (because it doesn’t log each row deletion).\nCannot use WHERE with TRUNCATE.\nExample: TRUNCATE TABLE Employees;\nDROP\nRemoves the entire table or database, including structure and data.\nIt is DDL.\nOnce dropped, the table is gone (cannot be rolled back without backup).\nExample: DROP TABLE Employees;\n DROP DATABASE Company;\nDELETE → Row-level, conditional, rollback possible\nTRUNCATE → All rows, structure remains, faster, no rollback in most DBs\nDROP → Entire object (table/database), structure gone\nQuestion 2: You have a table Employees (id, name, salary).\n👉 Write a SQL query to fi",
+    "chunk_index": 0,
+    "metadata": {
+      "source_path": "R:\\SQL INTERVIEW QUESTIONS.docx",
+      "file_name": "SQL INTERVIEW QUESTIONS.docx",
+      "file_type": "docx",
+      "document_id": "e5b4490f920bfe57",
+      "chunk_id": "93d6fca9c446b0961fd12522",
+      "chunk_index": 0
+    }
+  },
+  {
+    "chunk_id": "d0dae314460aa1d2221d8e68",
+    "document_id": "e5b4490f920bfe57",
+    "text": "in most DBs\nDROP → Entire object (table/database), structure gone\nQuestion 2: You have a table Employees (id, name, salary).\n👉 Write a SQL query to find the second highest salary.\nAns : \nMethod 1: Using LIMIT / OFFSET (MySQL, PostgreSQL, etc.)\nSELECT DISTINCT salary\nFROM Employees\nORDER BY salary DESC\nLIMIT 1 OFFSET 1;\nORDER BY salary DESC → highest first\nLIMIT 1 OFFSET 1 → skip the first (highest), take the next\nMethod 2: Using MAX with Subquery (Works in Oracle, SQL Server, etc.)\nSELECT MAX(salary) AS SecondHighestSalary\nFROM Employees\nWHERE salary < (SELECT MAX(salary) FROM Employees);\nMethod 3: Using ROW_NUMBER() (Window Function)\nSELECT salary\nFROM (\n SELECT salary, ROW_NUMBER() OVER (ORDER BY salary DESC) AS rn\n FROM Employees\n) t\nWHERE rn = 2;\nQuestion 3: What is the difference between WHERE and HAVING in SQL?\n👉 Please explain with an example.\nAns : \nWHERE Clause\nFilters rows before grouping or aggregation happens.\nCan be used with SELECT, UPDATE, DELETE.\nCannot be used with agg",
+    "chunk_index": 1,
+    "metadata": {
+      "source_path": "R:\\SQL INTERVIEW QUESTIONS.docx",
+      "file_name": "SQL INTERVIEW QUESTIONS.docx",
+      "file_type": "docx",
+      "document_id": "e5b4490f920bfe57",
+      "chunk_id": "d0dae314460aa1d2221d8e68",
+      "chunk_index": 1
+    }
+  },
+  {
+    "chunk_id": "5126ab657a7a647eec4df698",
+    "document_id": "e5b4490f920bfe57",
+    "text": "an example.\nAns : \nWHERE Clause\nFilters rows before grouping or aggregation happens.\nCan be used with SELECT, UPDATE, DELETE.\nCannot be used with aggregate functions like SUM(), COUNT(), AVG(), etc.\n👉 Example:\n-- Find employees in Sales department\nSELECT * FROM Employees\nWHERE department = 'Sales';\n🔹 HAVING Clause\nFilters groups (after aggregation).\nAlways used with GROUP BY.\nCan use aggregate functions.\n👉 Example:\n-- Find departments where total salary > 100000\nSELECT department, SUM(salary) AS total_salary\nFROM Employees\nGROUP BY department\nHAVING SUM(salary) > 100000;\n✅ Key Difference (Interview-Friendly)\nWHERE → filters rows before grouping\nHAVING → filters groups after grouping\nQuestion 4: Can a table have multiple primary keys?\n👉 Explain your answer.\nAns : Primary Key Rules\nA primary key uniquely identifies each row in a table.\nA table can have only one primary key constraint, but…\nThat primary key can consist of one column (simple PK) or multiple columns (composite PK).\nCREATE T",
+    "chunk_index": 2,
+    "metadata": {
+      "source_path": "R:\\SQL INTERVIEW QUESTIONS.docx",
+      "file_name": "SQL INTERVIEW QUESTIONS.docx",
+      "file_type": "docx",
+      "document_id": "e5b4490f920bfe57",
+      "chunk_id": "5126ab657a7a647eec4df698",
+      "chunk_index": 2
+    }
+  },
+  {
+    "chunk_id": "a7a40a6ab7e2895befd0ac94",
+    "document_id": "e5b4490f920bfe57",
+    "text": "ble can have only one primary key constraint, but…\nThat primary key can consist of one column (simple PK) or multiple columns (composite PK).\nCREATE TABLE Employees (\n emp_id INT PRIMARY KEY,\n name VARCHAR(100)\n);\nExample of a composite primary key (still one PK, but across 2 columns):\nCREATE TABLE Orders (\n order_id INT,\n product_id INT,\n PRIMARY KEY (order_id, product_id)\n);\nInterview Tip:\nIf they try to trick you with “can a table have multiple primary keys?” —\nSay:\n“No, a table can have only one primary key, but that key can consist of multiple columns.”\nQuestion 5: What is the difference between CHAR and VARCHAR data types in SQL?\nAns : CHAR\nFixed-length storage.\nIf data is shorter than the defined length, it pads with spaces.\nSlightly faster than VARCHAR for fixed-size fields.\nGood for data where values are mostly the same length (e.g., PIN codes, country codes).\nCREATE TABLE Accounts (\n id INT PRIMARY KEY,\n name CHAR(10)); \n -- If you insert 'Tom', it will actually store 'Tom '",
+    "chunk_index": 3,
+    "metadata": {
+      "source_path": "R:\\SQL INTERVIEW QUESTIONS.docx",
+      "file_name": "SQL INTERVIEW QUESTIONS.docx",
+      "file_type": "docx",
+      "document_id": "e5b4490f920bfe57",
+      "chunk_id": "a7a40a6ab7e2895befd0ac94",
+      "chunk_index": 3
+    }
+  },
+  {
+    "chunk_id": "e7b3d35ebccd63ad37d3541b",
+    "document_id": "e5b4490f920bfe57",
+    "text": ".g., PIN codes, country codes).\nCREATE TABLE Accounts (\n id INT PRIMARY KEY,\n name CHAR(10)); \n -- If you insert 'Tom', it will actually store 'Tom ' (padded to 10).\n🔹 VARCHAR\nVariable-length storage.\nOnly uses as much space as needed (plus 1–2 bytes for length info).\nMore space-efficient than CHAR when values vary in length.\nBest for names, emails, addresses, etc.\nCREATE TABLE Accounts (\n id INT,\n name VARCHAR(20)\n);\n-- If you insert 'Tom', it will just store 'Tom' (no padding).\n✅ Key Difference (to answer in interview):\nCHAR: Fixed-length, pads with spaces, faster but may waste space.\nVARCHAR: Variable-length, saves space, but slightly slower.\nQuestion 6: You have two tables:\nWrite a query to find all customers who have placed more than 5 orders.\nAns : \nSELECT c.customer_id, c.name, COUNT(o.order_id) AS total_orders\nFROM Customers c\nJOIN Orders o \n ON c.customer_id = o.customer_id\nGROUP BY c.customer_id, c.name\nHAVING COUNT(o.order_id) > 5;\n🔎 Explanation:\nJOIN → to combine Customers",
+    "chunk_index": 4,
+    "metadata": {
+      "source_path": "R:\\SQL INTERVIEW QUESTIONS.docx",
+      "file_name": "SQL INTERVIEW QUESTIONS.docx",
+      "file_type": "docx",
+      "document_id": "e5b4490f920bfe57",
+      "chunk_id": "e7b3d35ebccd63ad37d3541b",
+      "chunk_index": 4
+    }
+  },
+  {
+    "chunk_id": "2064e91d9dcf3682900fac52",
+    "document_id": "e5b4490f920bfe57",
+    "text": "N Orders o \n ON c.customer_id = o.customer_id\nGROUP BY c.customer_id, c.name\nHAVING COUNT(o.order_id) > 5;\n🔎 Explanation:\nJOIN → to combine Customers & Orders.\nCOUNT(o.order_id) → counts how many orders per customer.\nGROUP BY → groups results by customer.\nHAVING COUNT(...) > 5 → filters only those with more than 5 orders.\n💡 Interview Tip: If you had used FULL JOIN, you’d get customers with no orders too (not needed here).\nQuestion 7: Can you explain the difference between\n👉 INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL JOIN\nwith an example?\nAns : \nINNER JOIN\nReturns only matching rows between two tables.\nIf a row exists in one table but not the other, it will not appear.\n👉 Example:\nSELECT c.customer_id, c.name, o.order_id\nFROM Customers c\nINNER JOIN Orders o\n ON c.customer_id = o.customer_id;\n✅ Shows only customers who have placed an order.\n🔹 LEFT JOIN (LEFT OUTER JOIN)\nReturns all rows from the left table + matching rows from the right.\nIf no match, right side columns will be NULL.\n👉 Ex",
+    "chunk_index": 5,
+    "metadata": {
+      "source_path": "R:\\SQL INTERVIEW QUESTIONS.docx",
+      "file_name": "SQL INTERVIEW QUESTIONS.docx",
+      "file_type": "docx",
+      "document_id": "e5b4490f920bfe57",
+      "chunk_id": "2064e91d9dcf3682900fac52",
+      "chunk_index": 5
+    }
+  },
+  {
+    "chunk_id": "3bbeeaf122fd3e2884171e28",
+    "document_id": "e5b4490f920bfe57",
+    "text": "🔹 LEFT JOIN (LEFT OUTER JOIN)\nReturns all rows from the left table + matching rows from the right.\nIf no match, right side columns will be NULL.\n👉 Example:\nSELECT c.customer_id, c.name, o.order_id\nFROM Customers c\nLEFT JOIN Orders o\n ON c.customer_id = o.customer_id;\n✅ Shows all customers, even those with no orders.\n🔹 RIGHT JOIN (RIGHT OUTER JOIN)\nReturns all rows from the right table + matching rows from the left.\nIf no match, left side columns will be NULL.\n👉 Example:\nSELECT c.customer_id, c.name, o.order_id\nFROM Customers c\nRIGHT JOIN Orders o\n ON c.customer_id = o.customer_id;\n✅ Shows all orders, even if they don’t match any customer (rare case).\n🔹 FULL JOIN (FULL OUTER JOIN)\nReturns all rows from both tables, matching when possible.\nIf there’s no match, missing side will be NULL.\n👉 Example:\nSELECT c.customer_id, c.name, o.order_id\nFROM Customers c\nFULL JOIN Orders o\n ON c.customer_id = o.customer_id;\n✅ Shows all customers and all orders — even if there’s no match.\n🧠 Interview Shor",
+    "chunk_index": 6,
+    "metadata": {
+      "source_path": "R:\\SQL INTERVIEW QUESTIONS.docx",
+      "file_name": "SQL INTERVIEW QUESTIONS.docx",
+      "file_type": "docx",
+      "document_id": "e5b4490f920bfe57",
+      "chunk_id": "3bbeeaf122fd3e2884171e28",
+      "chunk_index": 6
+    }
+  },
+  {
+    "chunk_id": "834704476e5a81d1fe3db15e",
+    "document_id": "e5b4490f920bfe57",
+    "text": "OM Customers c\nFULL JOIN Orders o\n ON c.customer_id = o.customer_id;\n✅ Shows all customers and all orders — even if there’s no match.\n🧠 Interview Shortcut to Remember:\nINNER JOIN → Matching only\nLEFT JOIN → All left + matches\nRIGHT JOIN → All right + matches\nFULL JOIN → All rows from both\nQuestion 8: What is a foreign key in SQL?\n👉 Can a foreign key column accept NULL values?\nAns\nForeign Key\nA foreign key is a field (or group of fields) in one table that refers to the primary key in another table.\nIt creates a relationship between two tables and ensures referential integrity (i.e., you can’t insert a value in the child table that doesn’t exist in the parent table’s primary key).\n✅ Example:\nCREATE TABLE Customers (\n customer_id INT PRIMARY KEY,\n name VARCHAR(50)\n);\nCREATE TABLE Orders (\n order_id INT PRIMARY KEY,\n customer_id INT,\n FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)\n);\nHere, customer_id in Orders is a foreign key referencing Customers.\nYou cannot insert an order",
+    "chunk_index": 7,
+    "metadata": {
+      "source_path": "R:\\SQL INTERVIEW QUESTIONS.docx",
+      "file_name": "SQL INTERVIEW QUESTIONS.docx",
+      "file_type": "docx",
+      "document_id": "e5b4490f920bfe57",
+      "chunk_id": "834704476e5a81d1fe3db15e",
+      "chunk_index": 7
+    }
+  },
+  {
+    "chunk_id": "6e334878316d54c1f7416189",
+    "document_id": "e5b4490f920bfe57",
+    "text": "KEY (customer_id) REFERENCES Customers(customer_id)\n);\nHere, customer_id in Orders is a foreign key referencing Customers.\nYou cannot insert an order with customer_id = 999 if that customer doesn’t exist in Customers.\n🔹 Can a Foreign Key Accept NULL?\n👉 Yes, it can.\nA foreign key column can have NULL values, because NULL means “unknown” and does not violate referential integrity.\nExample: An order might not yet be assigned to a customer, so customer_id can be NULL.\n🧠 Interview Tip:\nIf asked:\nPrimary Key → Cannot be NULL, must be unique.\nForeign Key → Can have duplicates, and can have NULL (unless defined as NOT NULL).\nQuestion 9: What is the difference between UNION and UNION ALL in SQL?\nAns\nUNION\nCombines results from two or more SELECT statements.\nRemoves duplicate rows from the result set (does a DISTINCT).\nSlower than UNION ALL because of duplicate checking.\n👉 Example:\nSELECT customer_id FROM Customers_US\nUNION\nSELECT customer_id FROM Customers_UK;\n✅ Returns unique customer IDs from",
+    "chunk_index": 8,
+    "metadata": {
+      "source_path": "R:\\SQL INTERVIEW QUESTIONS.docx",
+      "file_name": "SQL INTERVIEW QUESTIONS.docx",
+      "file_type": "docx",
+      "document_id": "e5b4490f920bfe57",
+      "chunk_id": "6e334878316d54c1f7416189",
+      "chunk_index": 8
+    }
+  },
+  {
+    "chunk_id": "29e25517f69aa2021746560f",
+    "document_id": "e5b4490f920bfe57",
+    "text": "of duplicate checking.\n👉 Example:\nSELECT customer_id FROM Customers_US\nUNION\nSELECT customer_id FROM Customers_UK;\n✅ Returns unique customer IDs from both US and UK tables.\n🔹 UNION ALL\nCombines results from two or more SELECT statements.\nKeeps duplicates (does not perform DISTINCT).\nFaster than UNION.\n👉 Example:\nSELECT customer_id FROM Customers_US\nUNION ALL\nSELECT customer_id FROM Customers_UK;\n✅ Returns all customer IDs, including duplicates if a customer appears in both tables.\n🧠 Interview Tip:\nUse UNION if you want unique results.\nUse UNION ALL if duplicates are allowed and performance matters.",
+    "chunk_index": 9,
+    "metadata": {
+      "source_path": "R:\\SQL INTERVIEW QUESTIONS.docx",
+      "file_name": "SQL INTERVIEW QUESTIONS.docx",
+      "file_type": "docx",
+      "document_id": "e5b4490f920bfe57",
+      "chunk_id": "29e25517f69aa2021746560f",
+      "chunk_index": 9
+    }
+  }
+]

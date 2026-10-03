@@ -163,9 +163,14 @@ Rules:
     def _build_prompt(self, goal: str, context: AgentContext) -> str:
         metadata = context.metadata or {}
         available = metadata.get("available_tools", [])
+        memory_context = context.memory_context or []
+        memory_text = "\n".join(
+            f"- {item.get('content', '')}" for item in memory_context
+        ) or "No relevant prior memory."
         return (
             f"User goal:\n{goal}\n\n"
             f"Available tools/context:\n{json.dumps(available, ensure_ascii=False, default=str)}\n\n"
+            f"Relevant prior memory (use only when relevant):\n{memory_text}\n\n"
             "Produce the JSON execution plan now."
         )
 
