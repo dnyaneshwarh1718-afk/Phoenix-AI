@@ -1,6 +1,8 @@
 import uuid
 
 from app.agents.application_agent import ApplicationControlAgent
+from app.core.security import SecurityPolicy
+from app.execution.approval import ApprovalManager
 from app.agents.base_agent import AgentContext
 from app.agents.memory_agent import MemoryAgent
 from app.agents.planning_agent import PlanningAgent
@@ -38,7 +40,14 @@ class PhoenixOrchestrator:
                 max_sources=self.settings.research_max_sources,
                 timeout_seconds=self.settings.research_timeout_seconds,
             ),
-            "application": ApplicationControlAgent(),
+            "application": ApplicationControlAgent(
+                approval=ApprovalManager(
+                    SecurityPolicy(
+                        require_approval_for_tools=self.settings.require_approval_for_tools,
+                        max_tool_calls_per_task=self.settings.max_tool_calls_per_task,
+                    )
+                )
+            ),
             "memory": MemoryAgent(self.memory_store, max_results=self.settings.memory_max_results),
             "vision": ComputerVisionAgent(),
         }
@@ -146,7 +155,7 @@ class PhoenixOrchestrator:
             request_id=state["request_id"],
             user_id=state["user_id"],
             project_id=state.get("project_id"),
-            metadata=state.get("metadata", {}),
+            metadata={**(state.get("metadata") or {}), "application_enabled": self.settings.application_enabled},
             memory_context=state.get("memory_context", []),
         )
 
