@@ -13,6 +13,7 @@ def is_high_risk_action(action: str) -> bool:
         "upload",
         "send_email",
         "execute_shell",
+        "modify",
         "modify_production",
     }
     return action.lower() in risky

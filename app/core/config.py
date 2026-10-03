@@ -48,6 +48,10 @@ class Settings(BaseSettings):
     require_approval_for_tools: bool = True
     max_tool_calls_per_task: int = 20
 
+    # APPLICATION CONTROL
+    application_enabled: bool = True
+    application_approved_by_default: bool = False
+
     # INFRASTRUCTURE
     database_url: str = (
         "postgresql+psycopg://phoenix:phoenix@localhost:5432/phoenix"
