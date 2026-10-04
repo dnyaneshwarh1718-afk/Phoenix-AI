@@ -242,10 +242,13 @@ class ApplicationActionParser:
         if quoted:
             return quoted[0]
 
-        # Conservative path detection; avoids treating ordinary words as paths.
+        # Conservative path detection; accepts absolute Windows paths,
+        # ./relative paths, and project-relative paths such as
+        # evaluation/corpus/phoenix_evaluation.xlsx.
         candidates = re.findall(
-            r"(?:(?:[A-Za-z]:[\\/])|(?:\./|\.{2}/)|(?:[\\/]))[^\s,;]+",
+            r"(?<![A-Za-z0-9_])(?:[A-Za-z]:[\\/]|\.?[\\/])?[^\s,;]+\.(?:xlsx|xlsm|xls|csv|docx|doc|pptx|ppt|ipynb)(?![A-Za-z0-9_])",
             message,
+            flags=re.I,
         )
         for candidate in candidates:
             clean = candidate.rstrip(".,)")
