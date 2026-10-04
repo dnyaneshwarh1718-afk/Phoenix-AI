@@ -138,5 +138,33 @@
       "chunk_id": "29e25517f69aa2021746560f",
       "chunk_index": 9
     }
+  },
+  {
+    "chunk_id": "28e7f892c2d22d668ef79459",
+    "document_id": "82f2f310489abb18",
+    "text": "Phoenix AI Evaluation Document\n\nPhoenix AI uses Qdrant as its vector database.\nThe local generation model is qwen3:4b-instruct served through Ollama.\nDense retrieval uses Nomic Embed Text with 768-dimensional embeddings.\nHybrid retrieval combines dense retrieval and BM25 using Reciprocal Rank Fusion (RRF).\nThe RAG pipeline supports PDF, DOCX, XLSX, PPTX, CSV and TXT documents.",
+    "chunk_index": 0,
+    "metadata": {
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+      "file_name": "phoenix_architecture.txt",
+      "file_type": ".txt",
+      "document_id": "82f2f310489abb18",
+      "chunk_id": "28e7f892c2d22d668ef79459",
+      "chunk_index": 0
+    }
+  },
+  {
+    "chunk_id": "21f032786a88d85674074b0a",
+    "document_id": "dcafaacdbc94f2c3",
+    "text": "Phoenix AI DOCX Evaluation\nPhoenix AI's document-scoped RAG pipeline supports deterministic document references.\nThe canonical vector database in this evaluation corpus is Qdrant.\nThe generation model is qwen3:4b-instruct through Ollama.",
+    "chunk_index": 0,
+    "metadata": {
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+      "file_name": "phoenix_evaluation.docx",
+      "file_type": "docx",
+      "document_id": "dcafaacdbc94f2c3",
+      "chunk_id": "21f032786a88d85674074b0a",
+      "chunk_index": 0
+    }
   }
 ]

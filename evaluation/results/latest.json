@@ -1,0 +1,656 @@
+{
+  "suite": "Phoenix AI Real-World E2E Evaluation v3",
+  "timestamp": "2026-10-04T10:39:17Z",
+  "passed": 9,
+  "total": 14,
+  "pass_rate": 0.6429,
+  "results": [
+    {
+      "id": "RAG-TXT-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 17.605,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "Phoenix AI uses Qdrant as its vector database [Evidence 1].",
+      "metadata": {
+        "document_reference": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.7844444444444444,
+        "validation_reason": "Answer contains sufficient overlap with retrieved evidence.",
+        "model": "qwen3:4b-instruct",
+        "evidence_count": 1,
+        "context_characters": 458,
+        "document_id": "f70fbce98a65601b",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+        "citations": [
+          {
+            "citation_id": 1,
+            "chunk_id": "28e7f892c2d22d668ef79459",
+            "document_id": "82f2f310489abb18",
+            "file_name": "phoenix_architecture.txt",
+            "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+            "page": null,
+            "slide": null,
+            "sheet": null,
+            "score": 0.6333913043478262
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "RAG-TXT-02",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 4.62,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "Phoenix AI combines dense and lexical retrieval using Reciprocal Rank Fusion (RRF). [Evidence 1]",
+      "metadata": {
+        "document_reference": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.7741758241758241,
+        "validation_reason": "Answer contains sufficient overlap with retrieved evidence.",
+        "model": "qwen3:4b-instruct",
+        "evidence_count": 1,
+        "context_characters": 458,
+        "document_id": "f70fbce98a65601b",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+        "citations": [
+          {
+            "citation_id": 1,
+            "chunk_id": "28e7f892c2d22d668ef79459",
+            "document_id": "82f2f310489abb18",
+            "file_name": "phoenix_architecture.txt",
+            "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+            "page": null,
+            "slide": null,
+            "sheet": null,
+            "score": 0.5640579710144928
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "RAG-DOCX-01",
+      "passed": false,
+      "status_code": 200,
+      "latency_seconds": 3.69,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "The generation model used is qwen3:4instruct through Ollama [Evidence 1].",
+      "metadata": {
+        "document_reference": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.5797979797979798,
+        "validation_reason": "Answer contains sufficient overlap with retrieved evidence.",
+        "model": "qwen3:4b-instruct",
+        "evidence_count": 1,
+        "context_characters": 316,
+        "document_id": "9b43fc79967122c6",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+        "citations": [
+          {
+            "citation_id": 1,
+            "chunk_id": "21f032786a88d85674074b0a",
+            "document_id": "dcafaacdbc94f2c3",
+            "file_name": "phoenix_evaluation.docx",
+            "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+            "page": null,
+            "slide": null,
+            "sheet": null,
+            "score": 0.5888198757763976
+          }
+        ]
+      },
+      "reasons": [
+        "missing expected term: qwen3:4b-instruct"
+      ]
+    },
+    {
+      "id": "RAG-PDF-01",
+      "passed": false,
+      "status_code": 200,
+      "latency_seconds": 6.37,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "The retrieved evidence does not specify the embedding model used. [Evidence 1] mentions the generation model as qwen3:4b-instruct and the vector database as Qdrant, but it does not state the embedding model. Therefore, the information about the embedding model is not available in the provided documents.",
+      "metadata": {
+        "document_reference": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pdf",
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.3577205882352941,
+        "validation_reason": "Answer contains sufficient overlap with retrieved evidence.",
+        "model": "qwen3:4b-instruct",
+        "evidence_count": 1,
+        "context_characters": 316,
+        "document_id": "9b43fc79967122c6",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+        "citations": [
+          {
+            "citation_id": 1,
+            "chunk_id": "21f032786a88d85674074b0a",
+            "document_id": "dcafaacdbc94f2c3",
+            "file_name": "phoenix_evaluation.docx",
+            "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+            "page": null,
+            "slide": null,
+            "sheet": null,
+            "score": 0.440248447204969
+          }
+        ]
+      },
+      "reasons": [
+        "missing expected term: nomic-embed-text"
+      ]
+    },
+    {
+      "id": "RAG-PPTX-01",
+      "passed": false,
+      "status_code": 200,
+      "latency_seconds": 7.947,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "I could not verify the generated answer against the retrieved documents.",
+      "metadata": {
+        "document_reference": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pptx",
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "unverified",
+        "valid": false,
+        "confidence": 0.04285714285714285,
+        "validation_reason": "Answer is insufficiently supported by retrieved evidence.",
+        "model": "qwen3:4b-instruct",
+        "evidence_count": 1,
+        "context_characters": 316,
+        "document_id": "9b43fc79967122c6",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+        "citations": [
+          {
+            "citation_id": 1,
+            "chunk_id": "21f032786a88d85674074b0a",
+            "document_id": "dcafaacdbc94f2c3",
+            "file_name": "phoenix_evaluation.docx",
+            "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+            "page": null,
+            "slide": null,
+            "sheet": null,
+            "score": 0.3329468599033817
+          }
+        ]
+      },
+      "reasons": [
+        "missing expected term: approval",
+        "unexpected RAG status: 'unverified'"
+      ]
+    },
+    {
+      "id": "RAG-XLSX-01",
+      "passed": false,
+      "status_code": 200,
+      "latency_seconds": 7.043,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "I could not verify the generated answer against the retrieved documents.",
+      "metadata": {
+        "document_reference": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.xlsx",
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "unverified",
+        "valid": false,
+        "confidence": 0.08333333333333333,
+        "validation_reason": "Answer is insufficiently supported by retrieved evidence.",
+        "model": "qwen3:4b-instruct",
+        "evidence_count": 1,
+        "context_characters": 316,
+        "document_id": "9b43fc79967122c6",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+        "citations": [
+          {
+            "citation_id": 1,
+            "chunk_id": "21f032786a88d85674074b0a",
+            "document_id": "dcafaacdbc94f2c3",
+            "file_name": "phoenix_evaluation.docx",
+            "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+            "page": null,
+            "slide": null,
+            "sheet": null,
+            "score": 0.39072463768115945
+          }
+        ]
+      },
+      "reasons": [
+        "missing expected term: 768",
+        "unexpected RAG status: 'unverified'"
+      ]
+    },
+    {
+      "id": "RAG-XLSX-02",
+      "passed": false,
+      "status_code": 200,
+      "latency_seconds": 8.144,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "I could not verify the generated answer against the retrieved documents.",
+      "metadata": {
+        "document_reference": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.xlsx",
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "unverified",
+        "valid": false,
+        "confidence": 0.057692307692307696,
+        "validation_reason": "Answer is insufficiently supported by retrieved evidence.",
+        "model": "qwen3:4b-instruct",
+        "evidence_count": 1,
+        "context_characters": 316,
+        "document_id": "9b43fc79967122c6",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+        "citations": [
+          {
+            "citation_id": 1,
+            "chunk_id": "21f032786a88d85674074b0a",
+            "document_id": "dcafaacdbc94f2c3",
+            "file_name": "phoenix_evaluation.docx",
+            "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+            "page": null,
+            "slide": null,
+            "sheet": null,
+            "score": 0.3473913043478261
+          }
+        ]
+      },
+      "reasons": [
+        "missing expected term: engine a",
+        "missing expected term: 14400",
+        "unexpected RAG status: 'unverified'"
+      ]
+    },
+    {
+      "id": "RAG-UNKNOWN-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 4.098,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "I cannot determine that exact fact from the provided Phoenix AI documents; no production AWS account number is present in the retrieved evidence.",
+      "metadata": {
+        "document_reference": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "no_context",
+        "valid": false,
+        "confidence": 0.0,
+        "validation_reason": "The requested fact is not present in the retrieved evidence.",
+        "model": "qwen3:4b-instruct",
+        "evidence_count": 0,
+        "context_characters": 458,
+        "document_id": "f70fbce98a65601b",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+        "citations": []
+      },
+      "reasons": []
+    },
+    {
+      "id": "PLAN-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 117.079,
+      "intent": "planning",
+      "selected_agent": "planning",
+      "response": "Goal: Create an execution plan for analyzing a sales dataset and identifying the top products by revenue.\nStatus: ready\n\nExecution plan:\nstep_1. Define the dataset structure and key fields [research]\n   Identify the relevant columns in the sales dataset, such as product_id, product_name, quantity_sold, unit_price, and sale_date, to ensure alignment with revenue calculation.\nstep_2. Calculate total revenue per product [application]\n   Multiply quantity_sold by unit_price for each product record and aggregate the results to compute total revenue per product. | depends on: step_1\nstep_3. Sort products by total revenue in descending order [application]\n   Order the products by their calculated total revenue from highest to lowest to identify the top performers. | depends on: step_2\nstep_4. Validate data for outliers or anomalies [research]\n   Check for unexpected values, such as zero or negative revenue, and verify consistency in product names and pricing to ensure data integrity. | depends on: step_2\nstep_5. Generate a ranked list of top products by revenue [application]\n   Compile the sorted list of products with their total revenue and rank them (e.g., 1st, 2nd, 3rd) for clear presentation. | depends on: step_3\nstep_6. Present findings to stakeholders [application]\n   Summarize the top products by revenue in a clear format, such as a table or report, and highlight key insights for decision-making. | depends on: step_5\n\nAssumptions:\n- The sales dataset contains at least the fields: product_id, product_name, quantity_sold, unit_price, and sale_date.\n- The dataset is complete and accessible for analysis without missing or corrupted entries.",
+      "metadata": {
+        "document_reference": null,
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "ready",
+        "plan": {
+          "goal": "Create an execution plan for analyzing a sales dataset and identifying the top products by revenue.",
+          "status": "ready",
+          "blockers": [],
+          "assumptions": [
+            "The sales dataset contains at least the fields: product_id, product_name, quantity_sold, unit_price, and sale_date.",
+            "The dataset is complete and accessible for analysis without missing or corrupted entries."
+          ],
+          "notes": [
+            "This plan assumes the dataset is already available and in a structured format (e.g., CSV, Excel, SQL table).",
+            "No external tools or APIs are required for this analysis."
+          ],
+          "steps": [
+            {
+              "id": "step_1",
+              "title": "Define the dataset structure and key fields",
+              "description": "Identify the relevant columns in the sales dataset, such as product_id, product_name, quantity_sold, unit_price, and sale_date, to ensure alignment with revenue calculation.",
+              "agent": "research",
+              "depends_on": [],
+              "tools": [],
+              "approval_required": false
+            },
+            {
+              "id": "step_2",
+              "title": "Calculate total revenue per product",
+              "description": "Multiply quantity_sold by unit_price for each product record and aggregate the results to compute total revenue per product.",
+              "agent": "application",
+              "depends_on": [
+                "step_1"
+              ],
+              "tools": [],
+              "approval_required": false
+            },
+            {
+              "id": "step_3",
+              "title": "Sort products by total revenue in descending order",
+              "description": "Order the products by their calculated total revenue from highest to lowest to identify the top performers.",
+              "agent": "application",
+              "depends_on": [
+                "step_2"
+              ],
+              "tools": [],
+              "approval_required": false
+            },
+            {
+              "id": "step_4",
+              "title": "Validate data for outliers or anomalies",
+              "description": "Check for unexpected values, such as zero or negative revenue, and verify consistency in product names and pricing to ensure data integrity.",
+              "agent": "research",
+              "depends_on": [
+                "step_2"
+              ],
+              "tools": [],
+              "approval_required": false
+            },
+            {
+              "id": "step_5",
+              "title": "Generate a ranked list of top products by revenue",
+              "description": "Compile the sorted list of products with their total revenue and rank them (e.g., 1st, 2nd, 3rd) for clear presentation.",
+              "agent": "application",
+              "depends_on": [
+                "step_3"
+              ],
+              "tools": [],
+              "approval_required": false
+            },
+            {
+              "id": "step_6",
+              "title": "Present findings to stakeholders",
+              "description": "Summarize the top products by revenue in a clear format, such as a table or report, and highlight key insights for decision-making.",
+              "agent": "application",
+              "depends_on": [
+                "step_5"
+              ],
+              "tools": [],
+              "approval_required": false
+            }
+          ],
+          "metadata": {}
+        },
+        "step_count": 6,
+        "planning": true,
+        "llm_provider": "ollama",
+        "llm_model": "qwen3:4b-instruct"
+      },
+      "reasons": []
+    },
+    {
+      "id": "APP-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 0.454,
+      "intent": "application",
+      "selected_agent": "application",
+      "response": "Application action completed: inspect excel. Target: R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.xlsx",
+      "metadata": {
+        "document_reference": null,
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "application_action": {
+          "operation": "inspect",
+          "application": "excel",
+          "target": "evaluation/corpus/phoenix_evaluation.xlsx"
+        },
+        "execution": {
+          "status": "executed",
+          "operation": "inspect",
+          "application": "excel",
+          "target": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.xlsx",
+          "sheets": {
+            "Architecture": {
+              "rows": 6,
+              "columns": 2
+            },
+            "Sales": {
+              "rows": 6,
+              "columns": 5
+            }
+          }
+        }
+      },
+      "reasons": []
+    },
+    {
+      "id": "SEC-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 0.029,
+      "intent": "application",
+      "selected_agent": "application",
+      "response": "Closing desktop applications is not enabled yet.",
+      "metadata": {
+        "document_reference": null,
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "application_action": {
+          "operation": "close",
+          "application": "excel",
+          "target": null
+        },
+        "execution": {
+          "status": "unsupported",
+          "message": "Closing desktop applications is not enabled yet."
+        }
+      },
+      "reasons": []
+    },
+    {
+      "id": "DOC-ROUTING-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 3.694,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "The vector database used in the Phoenix evaluation document is Qdrant [Evidence 1].",
+      "metadata": {
+        "document_reference": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pdf",
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.6974358974358974,
+        "validation_reason": "Answer contains sufficient overlap with retrieved evidence.",
+        "model": "qwen3:4b-instruct",
+        "evidence_count": 1,
+        "context_characters": 316,
+        "document_id": "9b43fc79967122c6",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+        "citations": [
+          {
+            "citation_id": 1,
+            "chunk_id": "21f032786a88d85674074b0a",
+            "document_id": "dcafaacdbc94f2c3",
+            "file_name": "phoenix_evaluation.docx",
+            "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+            "page": null,
+            "slide": null,
+            "sheet": null,
+            "score": 0.6507246376811595
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "MEM-STORE",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 0.023,
+      "intent": "memory",
+      "selected_agent": "memory",
+      "response": "I'll remember that.",
+      "metadata": {
+        "document_reference": null,
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "stored",
+        "memory_id": "ccf89a4b0651f8d5c30024b2",
+        "memory_count": 41
+      },
+      "reasons": []
+    },
+    {
+      "id": "MEM-RECALL",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 0.046,
+      "intent": "memory",
+      "selected_agent": "memory",
+      "response": "Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n2. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n3. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n4. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n5. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n6. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. What vector database did I say is my primary choice for Phoenix AI?\n2. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n2. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n3. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n4. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n5. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n6. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. What vector database did I say is my primary choice for Phoenix AI?\n3. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n2. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n3. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n4. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n5. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n6. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. What vector database did I say is my primary choice for Phoenix AI?\n4. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n2. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n3. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n4. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n5. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n6. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. What vector database did I say is my primary choice for Phoenix AI?\n2. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector\n5. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n2. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n3. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n4. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n5. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n6. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. What vector database did I say is my primary choice for Phoenix AI?\n2. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector\n6. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n7. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n8. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.",
+      "metadata": {
+        "document_reference": null,
+        "search_roots": null,
+        "auto_index": true,
+        "research_max_sources": 6,
+        "research_timeout_seconds": 15.0,
+        "memory_retrieved": 8,
+        "status": "found",
+        "memory_count": 8,
+        "memories": [
+          {
+            "memory_id": "70a3887be99fbafaec408923",
+            "kind": "conversation_assistant",
+            "content": "Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n2. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n3. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n4. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n5. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n6. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. What vector database did I say is my primary choice for Phoenix AI?",
+            "source": "conversation",
+            "importance": 0.25,
+            "created_at": "2026-10-04T10:10:08.247717+00:00",
+            "project_id": null
+          },
+          {
+            "memory_id": "70a3887be99fbafaec408923",
+            "kind": "conversation_assistant",
+            "content": "Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n2. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n3. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n4. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n5. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n6. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. What vector database did I say is my primary choice for Phoenix AI?",
+            "source": "conversation",
+            "importance": 0.25,
+            "created_at": "2026-10-04T10:10:08.247717+00:00",
+            "project_id": null
+          },
+          {
+            "memory_id": "70a3887be99fbafaec408923",
+            "kind": "conversation_assistant",
+            "content": "Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n2. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n3. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n4. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n5. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n6. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. What vector database did I say is my primary choice for Phoenix AI?",
+            "source": "conversation",
+            "importance": 0.25,
+            "created_at": "2026-10-04T10:10:08.247717+00:00",
+            "project_id": null
+          },
+          {
+            "memory_id": "8d370b99b18a2c94971e1957",
+            "kind": "conversation_assistant",
+            "content": "Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n2. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n3. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n4. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n5. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n6. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. What vector database did I say is my primary choice for Phoenix AI?\n2. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector",
+            "source": "conversation",
+            "importance": 0.25,
+            "created_at": "2026-10-04T10:22:44.207795+00:00",
+            "project_id": null
+          },
+          {
+            "memory_id": "8d370b99b18a2c94971e1957",
+            "kind": "conversation_assistant",
+            "content": "Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n2. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n3. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.\n4. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n5. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n6. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. What vector database did I say is my primary choice for Phoenix AI?\n2. Here is what I remember:\n1. Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector",
+            "source": "conversation",
+            "importance": 0.25,
+            "created_at": "2026-10-04T10:22:44.207795+00:00",
+            "project_id": null
+          },
+          {
+            "memory_id": "f34d0d3ce0c12490260febf2",
+            "kind": "conversation_assistant",
+            "content": "Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.",
+            "source": "conversation",
+            "importance": 0.25,
+            "created_at": "2026-10-04T09:43:57.446547+00:00",
+            "project_id": null
+          },
+          {
+            "memory_id": "f34d0d3ce0c12490260febf2",
+            "kind": "conversation_assistant",
+            "content": "Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.",
+            "source": "conversation",
+            "importance": 0.25,
+            "created_at": "2026-10-04T09:43:57.446547+00:00",
+            "project_id": null
+          },
+          {
+            "memory_id": "f34d0d3ce0c12490260febf2",
+            "kind": "conversation_assistant",
+            "content": "Here is what I remember:\n1. Here is what I remember:\n1. What vector database did I say is my primary choice for Phoenix AI?\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. my primary Phoenix AI vector database is Qdrant.\n8. Remember that my primary Phoenix AI vector database is Qdrant.\n2. What vector database did I say is my primary choice for Phoenix AI?\n3. What vector database did I say is my primary choice for Phoenix AI?\n4. What vector database did I say is my primary choice for Phoenix AI?\n5. What vector database did I say is my primary choice for Phoenix AI?\n6. What vector database did I say is my primary choice for Phoenix AI?\n7. What vector database did I say is my primary choice for Phoenix AI?\n8. my primary Phoenix AI vector database is Qdrant.",
+            "source": "conversation",
+            "importance": 0.25,
+            "created_at": "2026-10-04T09:43:57.446547+00:00",
+            "project_id": null
+          }
+        ],
+        "query": "What vector database did I say is my primary choice for Phoenix AI"
+      },
+      "reasons": []
+    }
+  ]
+}

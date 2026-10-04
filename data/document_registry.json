@@ -9,5 +9,27 @@
         "status": "indexed",
         "file_size": 48749,
         "modified_time_ns": 1755532768019685000
+    },
+    "f70fbce98a65601b": {
+        "document_id": "f70fbce98a65601b",
+        "file_name": "phoenix_architecture.txt",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+        "file_type": ".txt",
+        "chunk_count": 1,
+        "indexed_at": "2026-10-04T10:37:12.939573+00:00",
+        "status": "indexed",
+        "file_size": 387,
+        "modified_time_ns": 1791110071468288800
+    },
+    "9b43fc79967122c6": {
+        "document_id": "9b43fc79967122c6",
+        "file_name": "phoenix_evaluation.docx",
+        "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+        "file_type": ".docx",
+        "chunk_count": 1,
+        "indexed_at": "2026-10-04T10:39:14.686577+00:00",
+        "status": "indexed",
+        "file_size": 36750,
+        "modified_time_ns": 1791110071424190600
     }
 }

@@ -1,0 +1,6 @@
+Phoenix AI Security Policy
+
+Read-only knowledge retrieval is considered a safe action.
+Modifying external files or applications requires approval before side effects.
+Unsupported application operations must fail closed and must not execute a tool.
+Document references take precedence over application keywords when the user is asking a knowledge question about a document.
