@@ -166,5 +166,193 @@
       "chunk_id": "21f032786a88d85674074b0a",
       "chunk_index": 0
     }
+  },
+  {
+    "chunk_id": "068e18932bc2a0ef344c785f",
+    "document_id": "988410498ca07dc4",
+    "text": "Phoenix AI PDF Evaluation\nVector database: Qdrant\nGeneration model: qwen3:4b-instruct\nEmbedding model: nomic-embed-text\nHybrid retrieval: Dense + BM25 + RRF\nExternal modifications require approval.",
+    "chunk_index": 0,
+    "metadata": {
+      "page_count": 1,
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pdf",
+      "file_name": "phoenix_evaluation.pdf",
+      "file_type": "pdf",
+      "document_id": "988410498ca07dc4",
+      "chunk_id": "068e18932bc2a0ef344c785f",
+      "chunk_index": 0,
+      "page": "1"
+    }
+  },
+  {
+    "chunk_id": "ab1d76217e5248f4133303da",
+    "document_id": "cca3fb7b7beedd40",
+    "text": "Phoenix AI Evaluation\nQdrant\nqwen3:4b-instruct\nHybrid retrieval: Dense + BM25 + RRF\n\nSafety\nRead-only retrieval is safe.\nExternal modifications require approval.",
+    "chunk_index": 0,
+    "metadata": {
+      "slide_count": 2,
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pptx",
+      "file_name": "phoenix_evaluation.pptx",
+      "file_type": "pptx",
+      "document_id": "cca3fb7b7beedd40",
+      "chunk_id": "ab1d76217e5248f4133303da",
+      "chunk_index": 0,
+      "slide": "2"
+    }
+  },
+  {
+    "chunk_id": "d5958a5c44ea865a0e1683ad",
+    "document_id": "eaa4660d825609ec",
+    "text": "Component,Value\nVector Database,Qdrant\nLLM,qwen3:4b-instruct\nEmbedding Model,nomic-embed-text\nEmbedding Dimension,768\nDense + Lexical Fusion,RRF\n\nOrder ID,Region,Product,Units,Revenue\nS001,West,Engine A,10,12000\nS002,West,Engine B,8,10400\nS003,North,Engine A,12,14400\nS004,South,Engine C,5,7500\nS005,North,Engine B,7,9100",
+    "chunk_index": 0,
+    "metadata": {
+      "sheet_count": 2,
+      "sheet_names": [
+        "Architecture",
+        "Sales"
+      ],
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.xlsx",
+      "file_name": "phoenix_evaluation.xlsx",
+      "file_type": "excel",
+      "document_id": "eaa4660d825609ec",
+      "chunk_id": "d5958a5c44ea865a0e1683ad",
+      "chunk_index": 0,
+      "sheet": "Sales"
+    }
+  },
+  {
+    "chunk_id": "1b7d2fcf046278521727c145",
+    "document_id": "42762c53d2936e59",
+    "text": "Phoenix AI Project Facts\n\nThe Planning Agent produces validated structured plans and does not execute tools.\nThe Memory Agent stores user-scoped memories and supports recall and forgetting.\nThe Research Agent searches external sources and requires cited synthesis.\nThe Application Control Agent handles supported application operations subject to security policy.",
+    "chunk_index": 0,
+    "metadata": {
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_projects.txt",
+      "file_name": "phoenix_projects.txt",
+      "file_type": ".txt",
+      "document_id": "42762c53d2936e59",
+      "chunk_id": "1b7d2fcf046278521727c145",
+      "chunk_index": 0
+    }
+  },
+  {
+    "chunk_id": "2738f96aefa3580ec53583b4",
+    "document_id": "891b4e2d6793f152",
+    "text": "Phoenix AI Security Policy\n\nRead-only knowledge retrieval is considered a safe action.\nModifying external files or applications requires approval before side effects.\nUnsupported application operations must fail closed and must not execute a tool.\nDocument references take precedence over application keywords when the user is asking a knowledge question about a document.",
+    "chunk_index": 0,
+    "metadata": {
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_security.txt",
+      "file_name": "phoenix_security.txt",
+      "file_type": ".txt",
+      "document_id": "891b4e2d6793f152",
+      "chunk_id": "2738f96aefa3580ec53583b4",
+      "chunk_index": 0
+    }
+  },
+  {
+    "chunk_id": "16b1895c36db10f3a604d63c",
+    "document_id": "f70fbce98a65601b",
+    "text": "Phoenix AI Evaluation Document\n\nPhoenix AI uses Qdrant as its vector database.\nThe local generation model is qwen3:4b-instruct served through Ollama.\nDense retrieval uses Nomic Embed Text with 768-dimensional embeddings.\nHybrid retrieval combines dense retrieval and BM25 using Reciprocal Rank Fusion (RRF).\nThe RAG pipeline supports PDF, DOCX, XLSX, PPTX, CSV and TXT documents.",
+    "chunk_index": 0,
+    "metadata": {
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
+      "file_name": "phoenix_architecture.txt",
+      "file_type": ".txt",
+      "document_id": "f70fbce98a65601b",
+      "chunk_id": "16b1895c36db10f3a604d63c",
+      "chunk_index": 0
+    }
+  },
+  {
+    "chunk_id": "ad9652e3268fa991ee7848e5",
+    "document_id": "9b43fc79967122c6",
+    "text": "Phoenix AI DOCX Evaluation\nPhoenix AI's document-scoped RAG pipeline supports deterministic document references.\nThe canonical vector database in this evaluation corpus is Qdrant.\nThe generation model is qwen3:4b-instruct through Ollama.",
+    "chunk_index": 0,
+    "metadata": {
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
+      "file_name": "phoenix_evaluation.docx",
+      "file_type": "docx",
+      "document_id": "9b43fc79967122c6",
+      "chunk_id": "ad9652e3268fa991ee7848e5",
+      "chunk_index": 0
+    }
+  },
+  {
+    "chunk_id": "759c757d115a6c9a3251c581",
+    "document_id": "25b2484231dd0931",
+    "text": "Phoenix AI PDF Evaluation\nVector database: Qdrant\nGeneration model: qwen3:4b-instruct\nEmbedding model: nomic-embed-text\nHybrid retrieval: Dense + BM25 + RRF\nExternal modifications require approval.",
+    "chunk_index": 0,
+    "metadata": {
+      "page_count": 1,
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pdf",
+      "file_name": "phoenix_evaluation.pdf",
+      "file_type": "pdf",
+      "document_id": "25b2484231dd0931",
+      "chunk_id": "759c757d115a6c9a3251c581",
+      "chunk_index": 0,
+      "page": "1"
+    }
+  },
+  {
+    "chunk_id": "08c33c0aea5051ecb5d2175d",
+    "document_id": "2d8b88c9a5b89c98",
+    "text": "Phoenix AI Evaluation\nQdrant\nqwen3:4b-instruct\nHybrid retrieval: Dense + BM25 + RRF\n\nSafety\nRead-only retrieval is safe.\nExternal modifications require approval.",
+    "chunk_index": 0,
+    "metadata": {
+      "slide_count": 2,
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pptx",
+      "file_name": "phoenix_evaluation.pptx",
+      "file_type": "pptx",
+      "document_id": "2d8b88c9a5b89c98",
+      "chunk_id": "08c33c0aea5051ecb5d2175d",
+      "chunk_index": 0,
+      "slide": "2"
+    }
+  },
+  {
+    "chunk_id": "1cf8ec4d5f32b823d2847e69",
+    "document_id": "c34c6533e8c28947",
+    "text": "Component,Value\nVector Database,Qdrant\nLLM,qwen3:4b-instruct\nEmbedding Model,nomic-embed-text\nEmbedding Dimension,768\nDense + Lexical Fusion,RRF\n\nOrder ID,Region,Product,Units,Revenue\nS001,West,Engine A,10,12000\nS002,West,Engine B,8,10400\nS003,North,Engine A,12,14400\nS004,South,Engine C,5,7500\nS005,North,Engine B,7,9100",
+    "chunk_index": 0,
+    "metadata": {
+      "sheet_count": 2,
+      "sheet_names": [
+        "Architecture",
+        "Sales"
+      ],
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.xlsx",
+      "file_name": "phoenix_evaluation.xlsx",
+      "file_type": "excel",
+      "document_id": "c34c6533e8c28947",
+      "chunk_id": "1cf8ec4d5f32b823d2847e69",
+      "chunk_index": 0,
+      "sheet": "Sales"
+    }
+  },
+  {
+    "chunk_id": "146e12af4d4cf4fabb8ec144",
+    "document_id": "62e005da8077ce6d",
+    "text": "Phoenix AI Project Facts\n\nThe Planning Agent produces validated structured plans and does not execute tools.\nThe Memory Agent stores user-scoped memories and supports recall and forgetting.\nThe Research Agent searches external sources and requires cited synthesis.\nThe Application Control Agent handles supported application operations subject to security policy.",
+    "chunk_index": 0,
+    "metadata": {
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_projects.txt",
+      "file_name": "phoenix_projects.txt",
+      "file_type": ".txt",
+      "document_id": "62e005da8077ce6d",
+      "chunk_id": "146e12af4d4cf4fabb8ec144",
+      "chunk_index": 0
+    }
+  },
+  {
+    "chunk_id": "ff3d5614cbea819b3748451e",
+    "document_id": "a29f3e678adc6aa3",
+    "text": "Phoenix AI Security Policy\n\nRead-only knowledge retrieval is considered a safe action.\nModifying external files or applications requires approval before side effects.\nUnsupported application operations must fail closed and must not execute a tool.\nDocument references take precedence over application keywords when the user is asking a knowledge question about a document.",
+    "chunk_index": 0,
+    "metadata": {
+      "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_security.txt",
+      "file_name": "phoenix_security.txt",
+      "file_type": ".txt",
+      "document_id": "a29f3e678adc6aa3",
+      "chunk_id": "ff3d5614cbea819b3748451e",
+      "chunk_index": 0
+    }
   }
 ]

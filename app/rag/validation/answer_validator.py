@@ -220,22 +220,6 @@ class AnswerValidator:
             ),
         )
 
-    @classmethod
-    def is_unanswerable_from_context(cls, query: str, context: RetrievalContext) -> bool:
-        """Detect a small class of clearly unsupported fact requests.
-
-        This is intentionally conservative: it is used to fail closed for
-        requests such as an exact AWS account number when the retrieved
-        evidence contains no account identifier at all.
-        """
-        q = (query or "").lower()
-        evidence = " ".join(item.text for item in (context.items if context else []))
-        e = evidence.lower()
-        if "account number" in q or ("aws" in q and "account" in q):
-            if "account number" not in e and not re.search(r"\b\d{8,16}\b", evidence):
-                return True
-        return False
-
     @staticmethod
     def _tokenize(
         text: str,

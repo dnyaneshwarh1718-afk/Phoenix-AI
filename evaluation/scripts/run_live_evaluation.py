@@ -118,17 +118,31 @@ def memory_cases() -> list[dict]:
     ]
 
 def main() -> int:
-    parser = argparse.ArgumentParser(); parser.add_argument("--preflight", action="store_true"); args = parser.parse_args()
+    parser = argparse.ArgumentParser(description="Phoenix AI live E2E evaluation")
+    parser.add_argument("--preflight", action="store_true")
+    parser.add_argument("--case", help="Run only one case ID")
+    parser.add_argument("--verbose", action="store_true", help="Print request body, metadata and response details")
+    args = parser.parse_args()
     if not preflight(): return 2
     if args.preflight: return 0
 
-    cases = json.loads(DATA.read_text(encoding="utf-8"))
+    cases = json.loads(DATA.read_text(encoding="utf-8")) + memory_cases()
+    if args.case:
+        cases = [case for case in cases if case.get("id") == args.case]
+        if not cases:
+            print(f"Unknown case: {args.case}")
+            return 3
     results = []
     with httpx.Client() as client:
-        for case in cases + memory_cases():
+        for case in cases:
             print(f"\n[{case['id']}] {case['message']}")
             result = evaluate(case, request(client, case)); results.append(result)
             print("PASS" if result["passed"] else "FAIL", result.get("reasons", []), f"({result.get('latency_seconds')}s)")
+            if args.verbose:
+                print("  intent:", result.get("intent"))
+                print("  agent:", result.get("selected_agent"))
+                print("  response:", result.get("response"))
+                print("  metadata:", json.dumps(result.get("metadata", {}), indent=2, ensure_ascii=False))
 
     passed = sum(bool(x.get("passed")) for x in results)
     total = len(results)

@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-import os
-from pathlib import Path
-
 from app.rag.bm25.bm25_store import BM25Store
 from app.rag.embeddings.embedding_engine import EmbeddingEngine
 from app.rag.retrieval.dense_retriever import DenseRetriever
@@ -34,7 +31,6 @@ class HybridRetriever:
         limit: int = 10,
         document_id: str | None = None,
         candidate_limit: int | None = None,
-        source_path: str | None = None,
     ) -> list[RerankedResult]:
         if not query or not query.strip() or limit <= 0:
             return []
@@ -45,18 +41,6 @@ class HybridRetriever:
         if document_id:
             dense = self.dense_retriever.search_document(query, document_id, candidate_limit)
             keyword = self.keyword_retriever.search_document(query, document_id, candidate_limit)
-
-            # The registry and retrieval backends can drift after migrations,
-            # restores, or an older indexing run. In that situation the same
-            # physical document may have a different document_id in Qdrant/BM25.
-            # A document-scoped query must not become a false negative merely
-            # because the identity key drifted. Fall back to global candidates
-            # and enforce the document boundary using the canonical source path.
-            if not dense and not keyword and source_path:
-                dense_candidates = self.dense_retriever.search(query, candidate_limit * 5)
-                keyword_candidates = self.keyword_retriever.search(query, candidate_limit * 5)
-                dense = self._filter_source_path(dense_candidates, source_path)[:candidate_limit]
-                keyword = self._filter_source_path(keyword_candidates, source_path)[:candidate_limit]
         else:
             dense = self.dense_retriever.search(query, candidate_limit)
             keyword = self.keyword_retriever.search(query, candidate_limit)
@@ -67,21 +51,3 @@ class HybridRetriever:
             limit=candidate_limit,
         )
         return self.reranker.rerank(query, fused, limit=limit)
-    @staticmethod
-    def _normalize_path(value: str) -> str:
-        try:
-            return os.path.normcase(str(Path(value).resolve()))
-        except (OSError, RuntimeError, TypeError):
-            return os.path.normcase(os.path.normpath(str(value)))
-
-    @classmethod
-    def _filter_source_path(cls, results, source_path: str):
-        target = cls._normalize_path(source_path)
-        matched = []
-        for result in results:
-            metadata = getattr(result, "metadata", {}) or {}
-            candidate = metadata.get("source_path")
-            if candidate and cls._normalize_path(str(candidate)) == target:
-                matched.append(result)
-        return matched
-

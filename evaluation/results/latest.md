@@ -1,65 +1,62 @@
 # Phoenix AI Real-World E2E Evaluation v3
 
-**Result:** 9/14 passed (64.3%)
+**Result:** 12/14 passed (85.7%)
 
 ## RAG-TXT-01: PASS
-- Latency: 17.605s
+- Latency: 18.329s
 - Intent: rag
 - Agent: rag
 ## RAG-TXT-02: PASS
-- Latency: 4.62s
+- Latency: 3.592s
 - Intent: rag
 - Agent: rag
-## RAG-DOCX-01: FAIL
-- Latency: 3.69s
+## RAG-DOCX-01: PASS
+- Latency: 2.914s
 - Intent: rag
 - Agent: rag
-- Reasons: missing expected term: qwen3:4b-instruct
-## RAG-PDF-01: FAIL
-- Latency: 6.37s
+## RAG-PDF-01: PASS
+- Latency: 2.629s
 - Intent: rag
 - Agent: rag
-- Reasons: missing expected term: nomic-embed-text
-## RAG-PPTX-01: FAIL
-- Latency: 7.947s
+## RAG-PPTX-01: PASS
+- Latency: 2.199s
 - Intent: rag
 - Agent: rag
-- Reasons: missing expected term: approval; unexpected RAG status: 'unverified'
-## RAG-XLSX-01: FAIL
-- Latency: 7.043s
+## RAG-XLSX-01: PASS
+- Latency: 2.876s
 - Intent: rag
 - Agent: rag
-- Reasons: missing expected term: 768; unexpected RAG status: 'unverified'
 ## RAG-XLSX-02: FAIL
-- Latency: 8.144s
+- Latency: 2.645s
 - Intent: rag
 - Agent: rag
-- Reasons: missing expected term: engine a; missing expected term: 14400; unexpected RAG status: 'unverified'
-## RAG-UNKNOWN-01: PASS
-- Latency: 4.098s
+- Reasons: missing expected term: 14400
+## RAG-UNKNOWN-01: FAIL
+- Latency: 5.017s
 - Intent: rag
 - Agent: rag
+- Reasons: unexpected RAG status: 'unverified'; unanswerable request did not clearly refuse/qualify the missing fact
 ## PLAN-01: PASS
-- Latency: 117.079s
+- Latency: 144.43s
 - Intent: planning
 - Agent: planning
 ## APP-01: PASS
-- Latency: 0.454s
+- Latency: 0.2s
 - Intent: application
 - Agent: application
 ## SEC-01: PASS
-- Latency: 0.029s
+- Latency: 0.071s
 - Intent: application
 - Agent: application
 ## DOC-ROUTING-01: PASS
-- Latency: 3.694s
+- Latency: 2.702s
 - Intent: rag
 - Agent: rag
 ## MEM-STORE: PASS
-- Latency: 0.023s
+- Latency: 0.028s
 - Intent: memory
 - Agent: memory
 ## MEM-RECALL: PASS
-- Latency: 0.046s
+- Latency: 0.039s
 - Intent: memory
 - Agent: memory
