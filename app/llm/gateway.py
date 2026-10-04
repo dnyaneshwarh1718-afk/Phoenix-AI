@@ -141,7 +141,21 @@ class LLMGateway:
                     json=payload,
                 )
 
-                response.raise_for_status()
+                # Preserve Ollama's actual error body. A bare HTTP 400 is not
+                # actionable when debugging provider compatibility issues.
+                if response.is_error:
+                    detail = response.text.strip()
+                    logger.error(
+                        "Ollama HTTP error | status=%s | model=%s | task=%s | body=%s",
+                        response.status_code,
+                        model,
+                        request.task_type,
+                        detail[:2000],
+                    )
+                    raise LLMError(
+                        f"Ollama returned HTTP {response.status_code} for {model}"
+                        + (f": {detail[:2000]}" if detail else "")
+                    )
 
                 data = response.json()
 
@@ -175,6 +189,8 @@ class LLMGateway:
                 raw=data,
             )
 
+        except LLMError:
+            raise
         except Exception as exc:
 
             logger.exception(
@@ -285,7 +301,21 @@ class LLMGateway:
                     json=payload,
                 )
 
-                response.raise_for_status()
+                # Preserve Ollama's actual error body. A bare HTTP 400 is not
+                # actionable when debugging provider compatibility issues.
+                if response.is_error:
+                    detail = response.text.strip()
+                    logger.error(
+                        "Ollama HTTP error | status=%s | model=%s | task=%s | body=%s",
+                        response.status_code,
+                        model,
+                        request.task_type,
+                        detail[:2000],
+                    )
+                    raise LLMError(
+                        f"Ollama returned HTTP {response.status_code} for {model}"
+                        + (f": {detail[:2000]}" if detail else "")
+                    )
 
                 data = response.json()
 
