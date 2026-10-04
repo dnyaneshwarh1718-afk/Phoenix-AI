@@ -1,62 +1,60 @@
 # Phoenix AI Real-World E2E Evaluation v3
 
-**Result:** 12/14 passed (85.7%)
+**Result:** 14/14 passed (100.0%)
 
 ## RAG-TXT-01: PASS
-- Latency: 18.329s
+- Latency: 15.181s
 - Intent: rag
 - Agent: rag
 ## RAG-TXT-02: PASS
-- Latency: 3.592s
+- Latency: 4.844s
 - Intent: rag
 - Agent: rag
 ## RAG-DOCX-01: PASS
-- Latency: 2.914s
+- Latency: 3.754s
 - Intent: rag
 - Agent: rag
 ## RAG-PDF-01: PASS
-- Latency: 2.629s
+- Latency: 3.394s
 - Intent: rag
 - Agent: rag
 ## RAG-PPTX-01: PASS
-- Latency: 2.199s
+- Latency: 3.803s
 - Intent: rag
 - Agent: rag
 ## RAG-XLSX-01: PASS
-- Latency: 2.876s
+- Latency: 4.267s
 - Intent: rag
 - Agent: rag
-## RAG-XLSX-02: FAIL
-- Latency: 2.645s
+## RAG-XLSX-02: PASS
+- Latency: 3.89s
 - Intent: rag
 - Agent: rag
-- Reasons: missing expected term: 14400
-## RAG-UNKNOWN-01: FAIL
-- Latency: 5.017s
+## RAG-UNKNOWN-01: PASS
+- Latency: 4.935s
 - Intent: rag
 - Agent: rag
-- Reasons: unexpected RAG status: 'unverified'; unanswerable request did not clearly refuse/qualify the missing fact
 ## PLAN-01: PASS
-- Latency: 144.43s
+- Latency: 118.481s
 - Intent: planning
 - Agent: planning
 ## APP-01: PASS
-- Latency: 0.2s
+- Latency: 0.087s
 - Intent: application
 - Agent: application
 ## SEC-01: PASS
-- Latency: 0.071s
+- Latency: 0.037s
 - Intent: application
 - Agent: application
 ## DOC-ROUTING-01: PASS
-- Latency: 2.702s
+- Latency: 3.422s
 - Intent: rag
 - Agent: rag
 ## MEM-STORE: PASS
-- Latency: 0.028s
+- Latency: 0.023s
 - Intent: memory
 - Agent: memory
 ## MEM-RECALL: PASS
-- Latency: 0.039s
+- Latency: 0.044s
 - Intent: memory
 - Agent: memory

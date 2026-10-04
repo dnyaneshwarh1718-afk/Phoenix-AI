@@ -1,9 +1,9 @@
+import hashlib
 from pathlib import Path
 
 from pptx import Presentation
 
 from app.rag.models import Document
-from app.rag.document_identity import canonical_document_id
 from app.rag.ingestion.base_loader import (
     BaseDocumentLoader,
 )
@@ -52,7 +52,9 @@ class PPTXLoader(BaseDocumentLoader):
 
         text = "\n".join(slides)
 
-        document_id = canonical_document_id(path)
+        document_id = hashlib.sha256(
+            str(path.resolve()).encode()
+        ).hexdigest()[:16]
 
         return Document(
             document_id=document_id,

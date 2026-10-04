@@ -98,7 +98,7 @@ class RAGEngine:
         self.candidate_limit = max(candidate_limit, retrieval_limit)
         self.citation_engine = citation_engine or CitationEngine()
 
-    def retrieve(self, query: str, document_id: str | None = None):
+    def retrieve(self, query: str, document_id: str | None = None, source_path: str | None = None):
         if not query or not query.strip():
             return []
         return self.hybrid_retriever.search(
@@ -106,6 +106,7 @@ class RAGEngine:
             limit=self.retrieval_limit,
             candidate_limit=self.candidate_limit,
             document_id=document_id,
+            source_path=source_path,
         )
 
     def build_context(self, query: str, results) -> RetrievalContext:
@@ -121,16 +122,16 @@ class RAGEngine:
     def validate_answer(self, answer: str, context_result: RetrievalContext) -> AnswerValidationResult:
         return self.answer_validator.validate(answer=answer, context=context_result)
 
-    def ask(self, query: str, document_id: str | None = None) -> RAGResponse:
+    def ask(self, query: str, document_id: str | None = None, source_path: str | None = None) -> RAGResponse:
         if not query or not query.strip():
             raise ValueError("Query cannot be empty.")
         query = query.strip()
-        results = self.retrieve(query, document_id)
+        results = self.retrieve(query, document_id, source_path)
 
         if not results:
             return self._empty_response(
                 query,
-                "No relevant indexed evidence was found.",
+                "I cannot determine the answer because no relevant indexed evidence was found in the requested document.",
                 document_id=document_id,
                 status="no_retrieval",
             )
@@ -161,7 +162,11 @@ class RAGEngine:
             answer = generation.answer.strip()
             status = "ok"
         else:
-            answer = "I could not verify the generated answer against the retrieved documents."
+            answer = (
+                "I could not verify the generated answer against the retrieved documents. "
+                "The requested fact was not found with sufficient supporting evidence, "
+                "so I will not invent or guess it."
+            )
             status = "unverified"
 
         return RAGResponse(
@@ -202,7 +207,11 @@ class RAGEngine:
                 source_path=access.matched_path,
                 status=access.status,
             )
-        response = self.ask(query, document_id=access.document.document_id)
+        response = self.ask(
+            query,
+            document_id=access.document.document_id,
+            source_path=access.document.source_path,
+        )
         response.source_path = access.document.source_path
         response.document_id = access.document.document_id
         return response

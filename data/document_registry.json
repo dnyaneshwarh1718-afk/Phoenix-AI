@@ -16,10 +16,10 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
         "file_type": ".txt",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T16:36:39.715302+00:00",
+        "indexed_at": "2026-10-04T17:56:25.395905+00:00",
         "status": "indexed",
         "file_size": 387,
-        "modified_time_ns": 1791131750032976800
+        "modified_time_ns": 1791136436322210400
     },
     "9b43fc79967122c6": {
         "document_id": "9b43fc79967122c6",
@@ -27,10 +27,10 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
         "file_type": ".docx",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T16:36:40.243482+00:00",
+        "indexed_at": "2026-10-04T17:56:06.295303+00:00",
         "status": "indexed",
         "file_size": 36750,
-        "modified_time_ns": 1791131750059598000
+        "modified_time_ns": 1791136436360629100
     },
     "a29f3e678adc6aa3": {
         "document_id": "a29f3e678adc6aa3",
@@ -38,10 +38,10 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_security.txt",
         "file_type": ".txt",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T16:36:42.716302+00:00",
+        "indexed_at": "2026-10-04T17:55:12.858732+00:00",
         "status": "indexed",
         "file_size": 379,
-        "modified_time_ns": 1791131750024464000
+        "modified_time_ns": 1791136436390211400
     },
     "62e005da8077ce6d": {
         "document_id": "62e005da8077ce6d",
@@ -49,10 +49,10 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_projects.txt",
         "file_type": ".txt",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T16:36:42.332635+00:00",
+        "indexed_at": "2026-10-04T17:55:12.057768+00:00",
         "status": "indexed",
         "file_size": 370,
-        "modified_time_ns": 1791131749999405400
+        "modified_time_ns": 1791136436348595100
     },
     "25b2484231dd0931": {
         "document_id": "25b2484231dd0931",
@@ -60,10 +60,10 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pdf",
         "file_type": ".pdf",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T16:36:40.676722+00:00",
+        "indexed_at": "2026-10-04T17:58:28.960847+00:00",
         "status": "indexed",
         "file_size": 1538,
-        "modified_time_ns": 1791131750006924500
+        "modified_time_ns": 1791136436369142000
     },
     "2d8b88c9a5b89c98": {
         "document_id": "2d8b88c9a5b89c98",
@@ -71,10 +71,10 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pptx",
         "file_type": ".pptx",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T16:36:41.121831+00:00",
+        "indexed_at": "2026-10-04T17:56:13.360958+00:00",
         "status": "indexed",
         "file_size": 29193,
-        "modified_time_ns": 1791131750048291400
+        "modified_time_ns": 1791136436382176700
     },
     "c34c6533e8c28947": {
         "document_id": "c34c6533e8c28947",
@@ -82,9 +82,9 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.xlsx",
         "file_type": ".xlsx",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T16:36:41.892726+00:00",
+        "indexed_at": "2026-10-04T17:56:21.442987+00:00",
         "status": "indexed",
         "file_size": 5682,
-        "modified_time_ns": 1791131750015943800
+        "modified_time_ns": 1791136436334268400
     }
 }

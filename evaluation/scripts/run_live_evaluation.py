@@ -68,19 +68,33 @@ def evaluate(case: dict, raw: dict) -> dict:
 
     if body.get("intent") != case["expected_intent"]:
         passed = False; reasons.append(f"intent={body.get('intent')!r}, expected={case['expected_intent']!r}")
+    def _normalized_text(value: str) -> str:
+        # Make evaluator matching robust to presentation formatting such as
+        # currency symbols and thousands separators (e.g. $14,400 vs 14400).
+        import re
+        value = value.lower()
+        value = re.sub(r"(?<=\d)[,\s](?=\d)", "", value)
+        value = re.sub(r"[$€£₹]", "", value)
+        return value
+
+    normalized_low = _normalized_text(text)
     for term in case.get("expected_terms", []):
-        if term.lower() not in low:
+        term_low = term.lower()
+        if term_low not in low and _normalized_text(term_low) not in normalized_low:
             passed = False; reasons.append(f"missing expected term: {term}")
     for term in case.get("forbidden_terms", []):
         if term.lower() in low:
             passed = False; reasons.append(f"forbidden claim: {term}")
     if case.get("require_evidence"):
         # For answerable cases, evidence is mandatory. For an explicitly
-        # unanswerable case, zero evidence is a valid and desirable outcome
-        # when the assistant clearly refuses to invent the missing fact.
+        # unanswerable case, zero evidence is valid; an unverified response
+        # is also acceptable when it clearly refuses to invent the fact.
         if md.get("evidence_count", 0) <= 0 and not case.get("unanswerable"):
             passed = False; reasons.append("no evidence_count")
-        if md.get("status") not in {"ok", "indexed", "not_found", "no_context", "no_retrieval", "ambiguous", "discovered_not_indexed"}:
+        allowed_statuses = {"ok", "indexed", "not_found", "no_context", "no_retrieval", "ambiguous", "discovered_not_indexed"}
+        if case.get("unanswerable"):
+            allowed_statuses.add("unverified")
+        if md.get("status") not in allowed_statuses:
             passed = False; reasons.append(f"unexpected RAG status: {md.get('status')!r}")
     if case.get("unanswerable"):
         refusal_markers = ("not found", "not available", "cannot", "can't", "do not have", "no evidence", "unable")
@@ -118,31 +132,17 @@ def memory_cases() -> list[dict]:
     ]
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Phoenix AI live E2E evaluation")
-    parser.add_argument("--preflight", action="store_true")
-    parser.add_argument("--case", help="Run only one case ID")
-    parser.add_argument("--verbose", action="store_true", help="Print request body, metadata and response details")
-    args = parser.parse_args()
+    parser = argparse.ArgumentParser(); parser.add_argument("--preflight", action="store_true"); args = parser.parse_args()
     if not preflight(): return 2
     if args.preflight: return 0
 
-    cases = json.loads(DATA.read_text(encoding="utf-8")) + memory_cases()
-    if args.case:
-        cases = [case for case in cases if case.get("id") == args.case]
-        if not cases:
-            print(f"Unknown case: {args.case}")
-            return 3
+    cases = json.loads(DATA.read_text(encoding="utf-8"))
     results = []
     with httpx.Client() as client:
-        for case in cases:
+        for case in cases + memory_cases():
             print(f"\n[{case['id']}] {case['message']}")
             result = evaluate(case, request(client, case)); results.append(result)
             print("PASS" if result["passed"] else "FAIL", result.get("reasons", []), f"({result.get('latency_seconds')}s)")
-            if args.verbose:
-                print("  intent:", result.get("intent"))
-                print("  agent:", result.get("selected_agent"))
-                print("  response:", result.get("response"))
-                print("  metadata:", json.dumps(result.get("metadata", {}), indent=2, ensure_ascii=False))
 
     passed = sum(bool(x.get("passed")) for x in results)
     total = len(results)

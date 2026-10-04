@@ -1,12 +1,11 @@
 from __future__ import annotations
 
+import hashlib
 import inspect
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 from typing import Any, Optional
-
-from app.rag.document_identity import canonical_document_id
 
 
 # ============================================================
@@ -843,10 +842,10 @@ class DocumentIndexer:
 
             if isinstance(chunk, dict):
 
-                chunk["document_id"] = document_id
-                metadata = chunk.get("metadata")
-                if isinstance(metadata, dict):
-                    metadata["document_id"] = document_id
+                chunk.setdefault(
+                    "document_id",
+                    document_id,
+                )
 
                 continue
 
@@ -862,11 +861,13 @@ class DocumentIndexer:
                     None,
                 )
 
-                if current != document_id:
-                    setattr(chunk, "document_id", document_id)
-                metadata = getattr(chunk, "metadata", None)
-                if isinstance(metadata, dict):
-                    metadata["document_id"] = document_id
+                if not current:
+
+                    setattr(
+                        chunk,
+                        "document_id",
+                        document_id,
+                    )
 
             except Exception:
                 # Immutable objects are allowed.
@@ -1218,7 +1219,17 @@ class DocumentIndexer:
         path: Path,
     ) -> str:
 
-        return canonical_document_id(path)
+        normalized_path = str(
+            path.resolve()
+        ).lower()
+
+        digest = hashlib.sha256(
+            normalized_path.encode(
+                "utf-8"
+            )
+        ).hexdigest()
+
+        return digest[:16]
 
     # ========================================================
     # ERROR HELPERS
