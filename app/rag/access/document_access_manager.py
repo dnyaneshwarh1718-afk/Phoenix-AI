@@ -51,12 +51,19 @@ class DocumentAccessManager:
 
         record = self._resolve_registered(reference)
         if record is not None:
-            if self.document_registry.is_indexed(record.source_path):
-                return self._ready(record, "registry", f"Document resolved from registry: {record.file_name}")
-            # Existing record but stale/unindexed: continue to reindex it.
             source = Path(record.source_path)
+            if self.document_registry.is_indexed(record.source_path):
+                # Registry state alone is insufficient: Qdrant/BM25 may have
+                # been cleared, migrated, or partially rebuilt while the
+                # persistent registry survived. Verify the actual backends.
+                consistent = self._backends_consistent(source, record)
+                if consistent:
+                    return self._ready(record, "registry", f"Document resolved from registry: {record.file_name}")
+                if source.is_file():
+                    return self._index_selected(source, "registry_backend_drift", auto_index, force_reindex=True)
+            # Existing record but stale/unindexed: continue to reindex it.
             if source.is_file():
-                return self._index_selected(source, "registry_stale", auto_index)
+                return self._index_selected(source, "registry_stale", auto_index, force_reindex=False)
 
         direct = Path(reference)
         if direct.is_file():
@@ -114,20 +121,37 @@ class DocumentAccessManager:
         ]
         return matches[0] if len(matches) == 1 else None
 
-    def _index_selected(self, path: Path, match_type: str, auto_index: bool, candidates=None) -> DocumentAccessResult:
+    def _index_selected(self, path: Path, match_type: str, auto_index: bool, candidates=None, force_reindex: bool = False) -> DocumentAccessResult:
         existing = self.document_registry.find_by_path(str(path))
-        if existing and self.document_registry.is_indexed(str(path)):
+        if existing and self.document_registry.is_indexed(str(path)) and not force_reindex:
             return self._ready(existing, match_type, f"Document already indexed: {existing.file_name}", candidates or [])
         if not auto_index:
             return DocumentAccessResult(True, False, existing, str(path.resolve()), match_type, "discovered_not_indexed", f"Document found but not indexed: {path.name}", candidates or [])
 
-        result = self.document_indexer.index_document(str(path))
+        try:
+            result = self.document_indexer.index_document(str(path), force_reindex=force_reindex)
+        except TypeError:
+            # Backward compatibility for lightweight test doubles/older
+            # indexers that do not expose the force_reindex keyword.
+            result = self.document_indexer.index_document(str(path))
         if result.status.name not in {"INDEXED", "REINDEXED", "ALREADY_INDEXED"}:
             return DocumentAccessResult(True, False, existing, str(path.resolve()), match_type, "index_failed", result.message, candidates or [], result)
 
         record = self.document_registry.get(result.document_id) if result.document_id else self.document_registry.find_by_path(str(path))
         ready = record is not None and self.document_registry.is_indexed(str(path))
         return DocumentAccessResult(True, ready, record, str(path.resolve()), match_type, "indexed" if ready else "index_failed", result.message, candidates or [], result)
+
+    def _backends_consistent(self, path: Path, record: DocumentRecord) -> bool:
+        checker = getattr(self.document_indexer, "is_index_consistent", None)
+        if callable(checker):
+            try:
+                return bool(checker(path, record.document_id))
+            except Exception:
+                return False
+        # Conservative fallback for older indexers: require the registry
+        # record to be present, but prefer reindexing when backend health is
+        # not observable.
+        return False
 
     @staticmethod
     def _ready(record: DocumentRecord, match_type: str, message: str, candidates=None) -> DocumentAccessResult:

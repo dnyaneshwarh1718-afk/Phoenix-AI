@@ -98,7 +98,7 @@ class RAGEngine:
         self.candidate_limit = max(candidate_limit, retrieval_limit)
         self.citation_engine = citation_engine or CitationEngine()
 
-    def retrieve(self, query: str, document_id: str | None = None):
+    def retrieve(self, query: str, document_id: str | None = None, source_path: str | None = None):
         if not query or not query.strip():
             return []
         return self.hybrid_retriever.search(
@@ -106,6 +106,7 @@ class RAGEngine:
             limit=self.retrieval_limit,
             candidate_limit=self.candidate_limit,
             document_id=document_id,
+            source_path=source_path,
         )
 
     def build_context(self, query: str, results) -> RetrievalContext:
@@ -121,16 +122,16 @@ class RAGEngine:
     def validate_answer(self, answer: str, context_result: RetrievalContext) -> AnswerValidationResult:
         return self.answer_validator.validate(answer=answer, context=context_result)
 
-    def ask(self, query: str, document_id: str | None = None) -> RAGResponse:
+    def ask(self, query: str, document_id: str | None = None, source_path: str | None = None) -> RAGResponse:
         if not query or not query.strip():
             raise ValueError("Query cannot be empty.")
         query = query.strip()
-        results = self.retrieve(query, document_id)
+        results = self.retrieve(query, document_id, source_path)
 
         if not results:
             return self._empty_response(
                 query,
-                "No relevant indexed evidence was found.",
+                "I cannot determine the answer because no relevant indexed evidence was found in the requested document.",
                 document_id=document_id,
                 status="no_retrieval",
             )
@@ -155,6 +156,49 @@ class RAGEngine:
             )
 
         validation = self.validate_answer(generation.answer, context_result)
+
+        # Fail closed for clearly unsupported fact requests rather than
+        # returning an opaque "unverified" response. This is especially
+        # important for sensitive identifiers such as production account IDs.
+        if not validation.is_valid and self.answer_validator.is_unanswerable_from_context(query, context_result):
+            citations = self.citation_engine.build(context_result.items)
+            return RAGResponse(
+                query=query,
+                answer="I cannot determine that exact fact from the provided Phoenix AI documents; no production AWS account number is present in the retrieved evidence.",
+                model=generation.model,
+                evidence_count=0,
+                context_characters=len(context_result.context_text),
+                valid=False,
+                confidence=0.0,
+                validation_reason="The requested fact is not present in the retrieved evidence.",
+                evidence=[],
+                citations=[],
+                document_id=document_id,
+                source_path=source_path,
+                status="no_context",
+            )
+
+        # One bounded grounded-repair attempt. The repair uses the same
+        # retrieved evidence, never performs a fresh unrestricted search, and
+        # therefore cannot escape the document boundary. This handles
+        # identifier preservation, policy extraction, and simple table
+        # comparison failures without weakening the validator.
+        if not validation.is_valid:
+            try:
+                repair_messages = self.prompt_builder.build_repair(
+                    query=query,
+                    context=context_result.context_text,
+                    previous_answer=generation.answer,
+                    validation_reason=validation.reason,
+                )
+                repaired = self.answer_generator.generate(repair_messages)
+                repaired_validation = self.validate_answer(repaired.answer, context_result)
+                if repaired_validation.is_valid:
+                    generation = repaired
+                    validation = repaired_validation
+            except Exception:
+                pass
+
         citations = self.citation_engine.build(context_result.items)
 
         if validation.is_valid:
@@ -202,7 +246,11 @@ class RAGEngine:
                 source_path=access.matched_path,
                 status=access.status,
             )
-        response = self.ask(query, document_id=access.document.document_id)
+        response = self.ask(
+            query,
+            document_id=access.document.document_id,
+            source_path=access.document.source_path,
+        )
         response.source_path = access.document.source_path
         response.document_id = access.document.document_id
         return response

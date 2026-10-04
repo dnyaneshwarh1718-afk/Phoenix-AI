@@ -238,25 +238,44 @@ class QdrantStore:
                 f"received {len(query_vector)}."
             )
 
+        document_filter = Filter(
+            must=[
+                FieldCondition(
+                    key="document_id",
+                    match=MatchValue(value=document_id),
+                )
+            ]
+        )
+
         response = self.client.query_points(
             collection_name=self.collection_name,
             query=query_vector,
-            query_filter=Filter(
-                must=[
-                    FieldCondition(
-                        key="document_id",
-                        match=MatchValue(
-                            value=document_id
-                        ),
-                    )
-                ]
-            ),
+            query_filter=document_filter,
             limit=limit,
             with_payload=True,
             with_vectors=False,
         )
+        points = list(response.points or [])
 
-        return response.points
+        # Self-healing compatibility fallback: if a legacy Qdrant/client
+        # combination returns no points for the payload filter even though
+        # the document is present, perform a bounded global search and enforce
+        # the document boundary in Python. This keeps document-scoped RAG
+        # correct without weakening the boundary.
+        if not points:
+            global_response = self.client.query_points(
+                collection_name=self.collection_name,
+                query=query_vector,
+                limit=max(limit * 5, 20),
+                with_payload=True,
+                with_vectors=False,
+            )
+            points = [
+                point for point in (global_response.points or [])
+                if str((point.payload or {}).get("document_id", "")) == str(document_id)
+            ][:limit]
+
+        return points
 
     def delete_document_except(self, document_id: str, keep_chunk_ids: set[str]) -> None:
         """Delete stale chunks after a successful reindex."""
@@ -309,6 +328,31 @@ class QdrantStore:
             ),
             wait=True,
         )
+
+    # ============================================================
+    # DOCUMENT HEALTH
+    # ============================================================
+
+    def document_chunk_count(self, document_id: str) -> int:
+        """Return the number of Qdrant points belonging to a document."""
+        if not document_id:
+            return 0
+        result = self.client.count(
+            collection_name=self.collection_name,
+            count_filter=Filter(
+                must=[
+                    FieldCondition(
+                        key="document_id",
+                        match=MatchValue(value=document_id),
+                    )
+                ]
+            ),
+            exact=True,
+        )
+        return int(result.count)
+
+    def has_document(self, document_id: str) -> bool:
+        return self.document_chunk_count(document_id) > 0
 
     # ============================================================
     # COUNT

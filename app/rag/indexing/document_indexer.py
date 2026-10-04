@@ -171,6 +171,8 @@ class DocumentIndexer:
         self,
         path: str | Path,
         document_id: Optional[str] = None,
+        *,
+        force_reindex: bool = False,
     ) -> IndexResult:
 
         path = Path(path)
@@ -209,7 +211,8 @@ class DocumentIndexer:
         # ----------------------------------------------------
 
         try:
-            already_indexed = self._is_document_indexed(path)
+            registry_indexed = self._is_document_indexed(path)
+            already_indexed = registry_indexed and not force_reindex
 
         except Exception as exc:
             return self._failure(
@@ -364,7 +367,7 @@ class DocumentIndexer:
         # 10b. Remove stale vector chunks after successful reindex
         # ----------------------------------------------------
 
-        if already_indexed:
+        if registry_indexed:
             try:
                 cleanup = getattr(self.qdrant_store, "delete_document_except", None)
                 if callable(cleanup):
@@ -434,9 +437,54 @@ class DocumentIndexer:
             ),
         )
 
-    def index_document(self, path: str | Path, document_id: Optional[str] = None) -> IndexResult:
-        """Explicit service-style alias used by DocumentAccessManager."""
-        return self.index(path, document_id=document_id)
+    def index_document(
+        self,
+        path: str | Path,
+        document_id: Optional[str] = None,
+        *,
+        force_reindex: bool = False,
+    ) -> IndexResult:
+        """Index a document, optionally rebuilding stale/missing backend state.
+
+        ``force_reindex`` is used when the registry says a document is indexed
+        but Qdrant/BM25 no longer contain the corresponding chunks.
+        """
+        return self.index(path, document_id=document_id, force_reindex=force_reindex)
+
+    def is_index_consistent(self, path: str | Path, document_id: str | None = None) -> bool:
+        """Verify that registry, Qdrant and BM25 contain the same document.
+
+        The registry is metadata only; it must never be treated as proof that
+        the retrieval backends still contain the document.
+        """
+        path = Path(path)
+        record = self._get_registry_record(path)
+        doc_id = document_id or self._record_document_id(record)
+        expected = self._record_chunk_count(record)
+        if not doc_id or expected <= 0:
+            return False
+
+        qdrant_count = 0
+        bm25_count = 0
+        qdrant = self.qdrant_store
+        if qdrant is not None:
+            count_fn = getattr(qdrant, "document_chunk_count", None)
+            if callable(count_fn):
+                qdrant_count = int(count_fn(doc_id))
+            else:
+                has_fn = getattr(qdrant, "has_document", None)
+                qdrant_count = expected if callable(has_fn) and has_fn(doc_id) else 0
+
+        bm25 = self.bm25_store
+        if bm25 is not None:
+            count_fn = getattr(bm25, "document_chunk_count", None)
+            if callable(count_fn):
+                bm25_count = int(count_fn(doc_id))
+            else:
+                has_fn = getattr(bm25, "has_document", None)
+                bm25_count = expected if callable(has_fn) and has_fn(doc_id) else 0
+
+        return qdrant_count >= expected and bm25_count >= expected
 
     # ========================================================
     # REGISTRY
