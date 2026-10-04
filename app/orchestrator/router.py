@@ -24,7 +24,22 @@ class IntentRouter:
         if self._is_application_request(text, metadata):
             return "application"
 
-        # 4. Knowledge retrieval / document questions.
+        # 4. Explicit memory operations have precedence over project-knowledge
+        # RAG signals. For example, "Remember that Phoenix AI uses Qdrant"
+        # contains both memory and RAG vocabulary, but it is a memory write.
+        if any(k in text for k in (
+            "remember", "memory", "forget", "what did i say",
+            "what i said", "did i say", "you remember",
+        )):
+            return "memory"
+
+        # 5. Knowledge retrieval / document questions.
+        #
+        # Project-knowledge questions are RAG questions even when the user
+        # does not explicitly say "document". This is important for queries
+        # such as "What vector database does Phoenix AI use?". Routing those
+        # to the general LLM executor would make the answer dependent on model
+        # prior knowledge and can also trigger an unnecessary Ollama call.
         if any(k in text for k in (
             "document", "pdf", "file", "folder", "according to",
             "from the document", "from this document", "in the document",
@@ -32,9 +47,19 @@ class IntentRouter:
         )):
             return "rag"
 
-        # 5. Explicit memory operations.
-        if any(k in text for k in ("remember", "memory", "forget")):
-            return "memory"
+        # Known Phoenix/project knowledge terms are authoritative RAG signals.
+        # Keep this list intentionally narrow so ordinary general questions
+        # are not hijacked by the RAG agent.
+        project_knowledge_terms = (
+            "phoenix ai", "phoenix-ai", "qdrant", "vector database",
+            "vector db", "qwen3", "qwen 3", "ollama", "nomic-embed",
+            "bm25", "reciprocal rank fusion", "rag agent",
+            "memory agent", "planning agent", "application control agent",
+            "computer vision agent", "research agent", "orchestrator agent",
+            "phoenix architecture", "phoenix rag",
+        )
+        if any(term in text for term in project_knowledge_terms):
+            return "rag"
 
         # 6. Vision / GUI perception.
         if any(k in text for k in ("screenshot", "screen", "click", "button", "visual")):
