@@ -16,10 +16,10 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
         "file_type": ".txt",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T17:56:25.395905+00:00",
+        "indexed_at": "2026-10-05T18:43:34.989755+00:00",
         "status": "indexed",
-        "file_size": 387,
-        "modified_time_ns": 1791136436322210400
+        "file_size": 203,
+        "modified_time_ns": 1791225741330541100
     },
     "9b43fc79967122c6": {
         "document_id": "9b43fc79967122c6",
@@ -27,10 +27,10 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
         "file_type": ".docx",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T17:56:06.295303+00:00",
+        "indexed_at": "2026-10-05T18:43:19.128012+00:00",
         "status": "indexed",
-        "file_size": 36750,
-        "modified_time_ns": 1791136436360629100
+        "file_size": 36696,
+        "modified_time_ns": 1791225741323983500
     },
     "a29f3e678adc6aa3": {
         "document_id": "a29f3e678adc6aa3",
@@ -60,10 +60,10 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pdf",
         "file_type": ".pdf",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T17:58:28.960847+00:00",
+        "indexed_at": "2026-10-05T18:43:39.347985+00:00",
         "status": "indexed",
-        "file_size": 1538,
-        "modified_time_ns": 1791136436369142000
+        "file_size": 1476,
+        "modified_time_ns": 1791225741292251000
     },
     "2d8b88c9a5b89c98": {
         "document_id": "2d8b88c9a5b89c98",
@@ -71,10 +71,10 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pptx",
         "file_type": ".pptx",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T17:56:13.360958+00:00",
+        "indexed_at": "2026-10-05T18:43:25.793321+00:00",
         "status": "indexed",
-        "file_size": 29193,
-        "modified_time_ns": 1791136436382176700
+        "file_size": 28356,
+        "modified_time_ns": 1791225741302377200
     },
     "c34c6533e8c28947": {
         "document_id": "c34c6533e8c28947",
@@ -82,9 +82,9 @@
         "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.xlsx",
         "file_type": ".xlsx",
         "chunk_count": 1,
-        "indexed_at": "2026-10-04T17:56:21.442987+00:00",
+        "indexed_at": "2026-10-05T18:43:32.103978+00:00",
         "status": "indexed",
-        "file_size": 5682,
-        "modified_time_ns": 1791136436334268400
+        "file_size": 4918,
+        "modified_time_ns": 1791225741312824100
     }
 }

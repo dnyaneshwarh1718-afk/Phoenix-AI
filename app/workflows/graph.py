@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from typing import Any
+from time import perf_counter
+
+from app.core.telemetry import add_timing
 
 from langgraph.graph import END, START, StateGraph
 
@@ -118,6 +121,7 @@ def _build_classify_node(orchestrator):
     """
 
     def classify(state: PhoenixState) -> PhoenixState:
+        started = perf_counter()
         metadata = dict(
             state.get("metadata") or {}
         )
@@ -127,6 +131,7 @@ def _build_classify_node(orchestrator):
             metadata,
         )
 
+        add_timing(metadata, "classification", perf_counter() - started)
         return {
             **state,
             "intent": intent,
@@ -145,9 +150,11 @@ def _build_memory_node(orchestrator):
     """Retrieve relevant prior memory before planning/agent execution."""
 
     def load_memory(state: PhoenixState) -> PhoenixState:
+        started = perf_counter()
         if not orchestrator.settings.memory_auto_capture:
-            return {**state, "memory_context": []}
-
+            metadata = dict(state.get("metadata") or {})
+            add_timing(metadata, "memory_retrieval", perf_counter() - started)
+            return {**state, "memory_context": [], "metadata": metadata}
         try:
             records = orchestrator.memory_store.search(
                 user_id=state.get("user_id", "default"),
@@ -167,12 +174,14 @@ def _build_memory_node(orchestrator):
             ]
             metadata = dict(state.get("metadata") or {})
             metadata["memory_retrieved"] = len(context)
+            add_timing(metadata, "memory_retrieval", perf_counter() - started)
             return {**state, "memory_context": context, "metadata": metadata}
         except Exception as exc:
             metadata = dict(state.get("metadata") or {})
             metadata["memory_retrieved"] = 0
             metadata["memory_status"] = "unavailable"
             metadata["memory_error"] = f"{type(exc).__name__}: {exc}"
+            add_timing(metadata, "memory_retrieval", perf_counter() - started)
             return {**state, "memory_context": [], "metadata": metadata}
 
     return load_memory
@@ -217,7 +226,7 @@ def _build_plan_node(orchestrator):
     """
 
     async def plan(state: PhoenixState) -> PhoenixState:
-
+        started = perf_counter()
         intent = state.get(
             "intent",
             "general",
@@ -225,25 +234,35 @@ def _build_plan_node(orchestrator):
 
         # Explicit planning request.
         if intent == "planning":
-            return await _run_planning(
+            result = await _run_planning(
                 orchestrator,
                 state,
             )
+            metadata = dict(result.get("metadata") or {})
+            add_timing(metadata, "planning", perf_counter() - started)
+            return {**result, "metadata": metadata}
 
         # RAG requests should go directly to retrieval.
         if intent == "rag":
-            return state
+            metadata = dict(state.get("metadata") or {})
+            add_timing(metadata, "planning", perf_counter() - started)
+            return {**state, "metadata": metadata}
 
         # Complex requests may benefit from planning.
         if _requires_planning(
             state["user_message"]
         ):
-            return await _run_planning(
+            result = await _run_planning(
                 orchestrator,
                 state,
             )
+            metadata = dict(result.get("metadata") or {})
+            add_timing(metadata, "planning", perf_counter() - started)
+            return {**result, "metadata": metadata}
 
-        return state
+        metadata = dict(state.get("metadata") or {})
+        add_timing(metadata, "planning", perf_counter() - started)
+        return {**state, "metadata": metadata}
 
     return plan
 

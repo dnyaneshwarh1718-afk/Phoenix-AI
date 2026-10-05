@@ -170,7 +170,7 @@
   {
     "chunk_id": "21f032786a88d85674074b0a",
     "document_id": "dcafaacdbc94f2c3",
-    "text": "Phoenix AI DOCX Evaluation\nPhoenix AI's document-scoped RAG pipeline supports deterministic document references.\nThe canonical vector database in this evaluation corpus is Qdrant.\nThe generation model is qwen3:4b-instruct through Ollama.",
+    "text": "Phoenix Evaluation\nThe generation model used is qwen3:4b-instruct through Ollama.\nThe embedding model used is nomic-embed-text with 768 dimensions.",
     "chunk_index": 0,
     "metadata": {
       "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.docx",
@@ -184,28 +184,27 @@
   {
     "chunk_id": "ab1d76217e5248f4133303da",
     "document_id": "cca3fb7b7beedd40",
-    "text": "Phoenix AI Evaluation\nQdrant\nqwen3:4b-instruct\nHybrid retrieval: Dense + BM25 + RRF\n\nSafety\nRead-only retrieval is safe.\nExternal modifications require approval.",
+    "text": "Phoenix Evaluation\nExternal modifications require approval.",
     "chunk_index": 0,
     "metadata": {
-      "slide_count": 2,
+      "slide_count": 1,
       "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.pptx",
       "file_name": "phoenix_evaluation.pptx",
       "file_type": "pptx",
       "document_id": "cca3fb7b7beedd40",
       "chunk_id": "ab1d76217e5248f4133303da",
       "chunk_index": 0,
-      "slide": "2"
+      "slide": "1"
     }
   },
   {
     "chunk_id": "d5958a5c44ea865a0e1683ad",
     "document_id": "eaa4660d825609ec",
-    "text": "Component,Value\nVector Database,Qdrant\nLLM,qwen3:4b-instruct\nEmbedding Model,nomic-embed-text\nEmbedding Dimension,768\nDense + Lexical Fusion,RRF\n\nOrder ID,Region,Product,Units,Revenue\nS001,West,Engine A,10,12000\nS002,West,Engine B,8,10400\nS003,North,Engine A,12,14400\nS004,South,Engine C,5,7500\nS005,North,Engine B,7,9100",
+    "text": "Product, Revenue, Embedding Dimension\n\nProduct: Engine A | Revenue: 14400 | Embedding Dimension: 768\n\nProduct: Engine B | Revenue: 12000 | Embedding Dimension: 768",
     "chunk_index": 0,
     "metadata": {
-      "sheet_count": 2,
+      "sheet_count": 1,
       "sheet_names": [
-        "Architecture",
         "Sales"
       ],
       "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_evaluation.xlsx",
@@ -220,7 +219,7 @@
   {
     "chunk_id": "28e7f892c2d22d668ef79459",
     "document_id": "82f2f310489abb18",
-    "text": "Phoenix AI Evaluation Document\n\nPhoenix AI uses Qdrant as its vector database.\nThe local generation model is qwen3:4b-instruct served through Ollama.\nDense retrieval uses Nomic Embed Text with 768-dimensional embeddings.\nHybrid retrieval combines dense retrieval and BM25 using Reciprocal Rank Fusion (RRF).\nThe RAG pipeline supports PDF, DOCX, XLSX, PPTX, CSV and TXT documents.",
+    "text": "Phoenix AI uses Qdrant as its vector database.\nPhoenix AI combines dense and lexical retrieval using Reciprocal Rank Fusion (RRF).\nPhoenix AI uses local-first architecture and evidence-grounded answers.",
     "chunk_index": 0,
     "metadata": {
       "source_path": "R:\\Phoenix-AI-main\\evaluation\\corpus\\phoenix_architecture.txt",
@@ -234,7 +233,7 @@
   {
     "chunk_id": "068e18932bc2a0ef344c785f",
     "document_id": "988410498ca07dc4",
-    "text": "Phoenix AI PDF Evaluation\nVector database: Qdrant\nGeneration model: qwen3:4b-instruct\nEmbedding model: nomic-embed-text\nHybrid retrieval: Dense + BM25 + RRF\nExternal modifications require approval.",
+    "text": "Phoenix Evaluation\nThe embedding model used is nomic-embed-text.\nThe generation model used is qwen3:4b-instruct.\nThe vector database used is Qdrant.",
     "chunk_index": 0,
     "metadata": {
       "page_count": 1,
