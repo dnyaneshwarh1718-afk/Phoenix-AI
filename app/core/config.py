@@ -34,6 +34,11 @@ class Settings(BaseSettings):
     temperature: float = 0.2
     max_tokens: int = 4096
 
+    # PLANNING
+    planning_fast_path_enabled: bool = True
+    planning_max_llm_attempts: int = 2
+    planning_max_tokens: int = 384
+
     # RESEARCH
     research_search_endpoint: str = "https://html.duckduckgo.com/html/"
     research_max_sources: int = 6
