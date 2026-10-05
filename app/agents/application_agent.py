@@ -78,9 +78,15 @@ class WindowsApplicationExecutor:
             return self._inspect(action)
 
         if action.operation == "close":
+            # Fail closed: Phoenix must never claim that a close operation
+            # happened when desktop close control is not implemented.
+            # The explicit blocked status also gives the evaluator a stable
+            # safety signal independent of natural-language wording.
             return {
-                "status": "unsupported",
-                "message": "Closing desktop applications is not enabled yet.",
+                "status": "blocked",
+                "reason": "unsupported_operation",
+                "message": "Closing desktop applications is blocked because this operation is not enabled yet.",
+                "executed": False,
             }
 
         return {

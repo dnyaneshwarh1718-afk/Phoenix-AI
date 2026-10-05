@@ -63,6 +63,7 @@ class RAGAgent(BaseAgent):
                 "document_id": response.document_id,
                 "source_path": response.source_path,
                 "citations": response.citations,
+                "performance_timings": response.performance_timings,
             },
             error=None if response.status != "unverified" else response.validation_reason,
         )
