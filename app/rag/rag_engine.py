@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
+from time import perf_counter
 
 from app.rag.access.document_access_manager import DocumentAccessManager
 from app.rag.citations.citation_engine import CitationEngine
@@ -27,6 +28,7 @@ class RAGResponse:
     document_id: str | None = None
     source_path: str | None = None
     status: str = "ok"
+    performance_timings: dict[str, float] = field(default_factory=dict)
 
 
 class RAGEngine:
@@ -126,7 +128,11 @@ class RAGEngine:
         if not query or not query.strip():
             raise ValueError("Query cannot be empty.")
         query = query.strip()
+        timings: dict[str, float] = {}
+        started = perf_counter()
+        results_started = perf_counter()
         results = self.retrieve(query, document_id, source_path)
+        timings["retrieval"] = perf_counter() - results_started
 
         if not results:
             return self._empty_response(
@@ -134,29 +140,41 @@ class RAGEngine:
                 "I cannot determine the answer because no relevant indexed evidence was found in the requested document.",
                 document_id=document_id,
                 status="no_retrieval",
+                performance_timings={**timings, "rag_total": perf_counter() - started},
             )
 
+        context_started = perf_counter()
         context_result = self.build_context(query, results)
+        timings["context_build"] = perf_counter() - context_started
         if not context_result.items or not context_result.context_text:
             return self._empty_response(
                 query,
                 "Relevant chunks were found, but sufficient context could not be constructed.",
                 document_id=document_id,
                 status="no_context",
+                performance_timings={**timings, "rag_total": perf_counter() - started},
             )
 
         try:
+            generation_started = perf_counter()
             generation = self.generate_answer(query, context_result.context_text)
+            timings["generation"] = perf_counter() - generation_started
         except Exception:
             return self._empty_response(
                 query,
                 "The answer generator is currently unavailable. Please verify that Ollama is running and try again.",
                 document_id=document_id,
                 status="generation_failed",
+                performance_timings={**timings, "rag_total": perf_counter() - started},
             )
 
+        validation_started = perf_counter()
         validation = self.validate_answer(generation.answer, context_result)
+        timings["validation"] = perf_counter() - validation_started
+        citation_started = perf_counter()
         citations = self.citation_engine.build(context_result.items)
+        timings["citation_build"] = perf_counter() - citation_started
+        timings["rag_total"] = perf_counter() - started
 
         if validation.is_valid:
             answer = generation.answer.strip()
@@ -182,6 +200,7 @@ class RAGEngine:
             citations=citations,
             document_id=document_id,
             status=status,
+            performance_timings=timings,
         )
 
     def ask_document(
@@ -194,11 +213,13 @@ class RAGEngine:
     ) -> RAGResponse:
         if self.document_access_manager is None:
             raise RuntimeError("DocumentAccessManager is required for document-scoped RAG.")
+        access_started = perf_counter()
         access = self.document_access_manager.prepare_document(
             document_reference,
             search_roots,
             auto_index=auto_index,
         )
+        access_elapsed = perf_counter() - access_started
         if not access.ready or access.document is None:
             return self._empty_response(
                 query.strip() if query else "",
@@ -206,6 +227,7 @@ class RAGEngine:
                 document_id=access.document.document_id if access.document else None,
                 source_path=access.matched_path,
                 status=access.status,
+                performance_timings={"document_prepare": access_elapsed},
             )
         response = self.ask(
             query,
@@ -214,6 +236,8 @@ class RAGEngine:
         )
         response.source_path = access.document.source_path
         response.document_id = access.document.document_id
+        response.performance_timings["document_prepare"] = access_elapsed
+        response.performance_timings["document_total"] = response.performance_timings.get("rag_total", 0.0) + access_elapsed
         return response
 
     def _empty_response(self, query: str, message: str, *, document_id=None, source_path=None, status="failed") -> RAGResponse:
@@ -231,4 +255,5 @@ class RAGEngine:
             document_id=document_id,
             source_path=source_path,
             status=status,
+            performance_timings=timings,
         )

@@ -34,13 +34,19 @@ class ExcelLoader(BaseDocumentLoader):
 
             dataframe = dataframe.fillna("")
 
-            csv_text = dataframe.to_csv(
-                index=False
-            )
+            # Keep spreadsheet rows semantically atomic. A generic character
+            # chunker can otherwise split a table between the product and its
+            # revenue value, which is especially harmful for analytical
+            # questions such as "which product has the highest revenue?".
+            columns = [str(column).strip() for column in dataframe.columns]
+            row_lines = [", ".join(columns)]
+            for _, row in dataframe.iterrows():
+                values = [str(row[column]).strip() for column in dataframe.columns]
+                row_lines.append(" | ".join(f"{column}: {value}" for column, value in zip(columns, values)))
 
             sections.append(
                 f"\n[Sheet: {sheet_name}]\n"
-                f"{csv_text}"
+                + "\n\n".join(row_lines)
             )
 
         text = "\n".join(sections)

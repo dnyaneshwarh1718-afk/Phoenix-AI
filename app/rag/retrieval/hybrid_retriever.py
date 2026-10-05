@@ -10,6 +10,7 @@ from app.rag.retrieval.keyword_retriever import KeywordRetriever
 from app.rag.retrieval.rrf import RRFResult, reciprocal_rank_fusion
 from app.rag.retrieval.reranker import HybridReranker, RerankedResult
 from app.rag.vector_store.qdrant_store import QdrantStore
+from app.rag.structured.excel_analytical_retriever import ExcelAnalyticalRetriever
 
 
 class HybridRetriever:
@@ -27,6 +28,7 @@ class HybridRetriever:
         self.keyword_retriever = KeywordRetriever(bm25_store)
         self.rrf_k = rrf_k
         self.reranker = reranker or HybridReranker()
+        self.excel_analytical_retriever = ExcelAnalyticalRetriever()
 
     def search(
         self,
@@ -38,6 +40,14 @@ class HybridRetriever:
     ) -> list[RerankedResult]:
         if not query or not query.strip() or limit <= 0:
             return []
+
+        # Structured spreadsheet questions require deterministic row/aggregation
+        # execution. Dense/BM25 retrieval remains the fallback for ordinary
+        # spreadsheet knowledge questions.
+        if source_path:
+            structured = self.excel_analytical_retriever.search(query, source_path)
+            if structured:
+                return structured[:limit]
 
         candidate_limit = max(limit, candidate_limit or limit * 4)
         query = query.strip()
