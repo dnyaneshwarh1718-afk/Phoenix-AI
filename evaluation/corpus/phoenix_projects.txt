@@ -1,6 +1,3 @@
-Phoenix AI Project Facts
+Phoenix AI includes RAG, planning, memory, application control, research, and vision capabilities.
 
-The Planning Agent produces validated structured plans and does not execute tools.
-The Memory Agent stores user-scoped memories and supports recall and forgetting.
-The Research Agent searches external sources and requires cited synthesis.
-The Application Control Agent handles supported application operations subject to security policy.
+The generation model used is qwen3:4b-instruct through Ollama.

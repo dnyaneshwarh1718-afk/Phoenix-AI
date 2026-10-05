@@ -1,0 +1,229 @@
+{
+  "schema_version": "1.0",
+  "source_suite": "Phoenix AI Real-World E2E Evaluation v3",
+  "source_timestamp": "2026-10-04T17:58:31Z",
+  "source_pass_rate": 1.0,
+  "measured_metrics": {
+    "retrieval_relevance_rate_percent": 100.0,
+    "retrieval_relevance_definition": "Share of answerable RAG cases with at least one citation whose file/source basename matches the expected evaluation document.",
+    "grounding_validation_pass_rate_percent": 100.0,
+    "grounding_definition": "Share of RAG cases where Phoenix metadata.valid matches the case answerability expectation (true for answerable, false for unanswerable).",
+    "citation_completeness_percent": 100.0,
+    "citation_completeness_definition": "Share of answerable RAG cases containing at least one citation.",
+    "citation_correctness_percent": 100.0,
+    "citation_correctness_definition": "Share of answerable RAG cases with at least one citation pointing to the expected evaluation document.",
+    "answer_expected_term_coverage_percent": 88.88888888888889,
+    "abstention_and_fail_closed_accuracy_percent": 100.0,
+    "confidence_mean": 0.6382222222222222,
+    "latency_seconds": {
+      "count": 14,
+      "mean_seconds": 11.868714285714287,
+      "median_seconds": 3.7785,
+      "p50_seconds": 3.7785,
+      "p95_seconds": 51.33599999999996,
+      "p99_seconds": 105.05199999999991,
+      "rag_mean_seconds": 5.276666666666667,
+      "rag_p95_seconds": 11.082599999999996
+    },
+    "phase1_quality_score_percent": 98.14814814814815
+  },
+  "suite_counts": {
+    "results_present": 14,
+    "passed": 14,
+    "total": 14,
+    "answerable_rag_cases": 8,
+    "unanswerable_rag_cases": 1
+  },
+  "case_metrics": [
+    {
+      "id": "RAG-TXT-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "qdrant"
+      ],
+      "matched_terms": [
+        "qdrant"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.7,
+      "latency_seconds": 15.181
+    },
+    {
+      "id": "RAG-TXT-02",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "rrf"
+      ],
+      "matched_terms": [
+        "rrf"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.7,
+      "latency_seconds": 4.844
+    },
+    {
+      "id": "RAG-DOCX-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "qwen3:4b-instruct"
+      ],
+      "matched_terms": [
+        "qwen3:4b-instruct"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.7,
+      "latency_seconds": 3.754
+    },
+    {
+      "id": "RAG-PDF-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "nomic-embed-text"
+      ],
+      "matched_terms": [
+        "nomic-embed-text"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.7,
+      "latency_seconds": 3.394
+    },
+    {
+      "id": "RAG-PPTX-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "approval"
+      ],
+      "matched_terms": [
+        "approval"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.7,
+      "latency_seconds": 3.803
+    },
+    {
+      "id": "RAG-XLSX-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "768"
+      ],
+      "matched_terms": [
+        "768"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.7,
+      "latency_seconds": 4.267
+    },
+    {
+      "id": "RAG-XLSX-02",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "engine a",
+        "14400"
+      ],
+      "matched_terms": [
+        "engine a"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.7,
+      "latency_seconds": 3.89
+    },
+    {
+      "id": "RAG-UNKNOWN-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": null,
+      "citation_correct": true,
+      "expected_terms": [],
+      "matched_terms": [],
+      "grounding_expected_valid": false,
+      "grounding_actual_valid": false,
+      "confidence": 0.144,
+      "latency_seconds": 4.935
+    },
+    {
+      "id": "PLAN-01",
+      "category": "planning",
+      "plan_structure_valid": true,
+      "latency_seconds": 118.481
+    },
+    {
+      "id": "APP-01",
+      "category": "application",
+      "expected_terms_present": true,
+      "execution_signal_ok": true,
+      "latency_seconds": 0.087
+    },
+    {
+      "id": "SEC-01",
+      "category": "application",
+      "fail_closed_correct": true,
+      "latency_seconds": 0.037
+    },
+    {
+      "id": "DOC-ROUTING-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "qdrant"
+      ],
+      "matched_terms": [
+        "qdrant"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.7,
+      "latency_seconds": 3.422
+    },
+    {
+      "id": "MEM-STORE",
+      "category": "memory",
+      "passed": true,
+      "latency_seconds": 0.023
+    },
+    {
+      "id": "MEM-RECALL",
+      "category": "memory",
+      "passed": true,
+      "latency_seconds": 0.044
+    }
+  ]
+}

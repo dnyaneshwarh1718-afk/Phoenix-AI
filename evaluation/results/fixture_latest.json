@@ -1,0 +1,296 @@
+{
+  "suite": "Phoenix AI Real-World E2E Evaluation v3",
+  "timestamp": "2026-10-04T17:58:31Z",
+  "passed": 14,
+  "total": 14,
+  "pass_rate": 1.0,
+  "results": [
+    {
+      "id": "RAG-TXT-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 15.181,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "Phoenix AI uses Qdrant as its vector database [Evidence 1].",
+      "metadata": {
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.7844444444444444,
+        "evidence_count": 1,
+        "citations": [
+          {
+            "citation_id": 1,
+            "file_name": "phoenix_architecture.txt",
+            "source_path": "phoenix_architecture.txt",
+            "score": 0.6333913043478262
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "RAG-TXT-02",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 4.844,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "Phoenix AI combines dense and lexical retrieval using Reciprocal Rank Fusion (RRF). [Evidence 1]",
+      "metadata": {
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.7741758241758241,
+        "evidence_count": 1,
+        "citations": [
+          {
+            "citation_id": 1,
+            "file_name": "phoenix_architecture.txt",
+            "source_path": "phoenix_architecture.txt",
+            "score": 0.5640579710144928
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "RAG-DOCX-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 3.754,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "The generation model used is qwen3:4b-instruct through Ollama [Evidence 1].",
+      "metadata": {
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.7149999999999999,
+        "evidence_count": 1,
+        "citations": [
+          {
+            "citation_id": 1,
+            "file_name": "phoenix_evaluation.docx",
+            "source_path": "phoenix_evaluation.docx",
+            "score": 0.5888198757763976
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "RAG-PDF-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 3.394,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "The embedding model used is nomic-embed-text [Evidence 1].",
+      "metadata": {
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.5875,
+        "evidence_count": 1,
+        "citations": [
+          {
+            "citation_id": 1,
+            "file_name": "phoenix_evaluation.pdf",
+            "source_path": "phoenix_evaluation.pdf",
+            "score": 0.5888198757763976
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "RAG-PPTX-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 3.803,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "The safety rule that applies to external modifications is that they require approval. [Evidence 1]",
+      "metadata": {
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.47,
+        "evidence_count": 1,
+        "citations": [
+          {
+            "citation_id": 1,
+            "file_name": "phoenix_evaluation.pptx",
+            "source_path": "phoenix_evaluation.pptx",
+            "score": 0.506280193236715
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "RAG-XLSX-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 4.267,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "The embedding dimension is 768 [Evidence 1].",
+      "metadata": {
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.5485714285714285,
+        "evidence_count": 1,
+        "citations": [
+          {
+            "citation_id": 1,
+            "file_name": "phoenix_evaluation.xlsx",
+            "source_path": "phoenix_evaluation.xlsx",
+            "score": 0.39072463768115945
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "RAG-XLSX-02",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 3.89,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "The product with the highest revenue is Engine A, with a revenue of $14,400 [Evidence 1].",
+      "metadata": {
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.41699346405228754,
+        "evidence_count": 1,
+        "citations": [
+          {
+            "citation_id": 1,
+            "file_name": "phoenix_evaluation.xlsx",
+            "source_path": "phoenix_evaluation.xlsx",
+            "score": 0.3473913043478261
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "RAG-UNKNOWN-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 4.935,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "I could not verify the generated answer against the retrieved documents. The requested fact was not found with sufficient supporting evidence, so I will not invent or guess it.",
+      "metadata": {
+        "status": "unverified",
+        "valid": false,
+        "confidence": 0.144,
+        "evidence_count": 1,
+        "citations": [
+          {
+            "citation_id": 1,
+            "file_name": "phoenix_architecture.txt",
+            "source_path": "phoenix_architecture.txt",
+            "score": 0.3659627329192547
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "PLAN-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 118.481,
+      "intent": "planning",
+      "selected_agent": "planning",
+      "response": "Goal: Create an execution plan for analyzing a sales dataset and identifying the top products by revenue.\nStatus: ready\nExecution plan:\nstep_1. Define dataset\nstep_2. Calculate revenue\nstep_3. Sort products",
+      "metadata": {
+        "status": "ok",
+        "valid": true
+      },
+      "reasons": []
+    },
+    {
+      "id": "APP-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 0.087,
+      "intent": "application",
+      "selected_agent": "application",
+      "response": "Application inspected evaluation/corpus/phoenix_evaluation.xlsx successfully.",
+      "metadata": {
+        "status": "ok",
+        "valid": true
+      },
+      "reasons": []
+    },
+    {
+      "id": "SEC-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 0.037,
+      "intent": "application",
+      "selected_agent": "application",
+      "response": "Action blocked: approval is required for this external modification.",
+      "metadata": {
+        "status": "blocked",
+        "valid": true
+      },
+      "reasons": []
+    },
+    {
+      "id": "DOC-ROUTING-01",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 3.422,
+      "intent": "rag",
+      "selected_agent": "rag",
+      "response": "Phoenix AI uses Qdrant as its vector database [Evidence 1].",
+      "metadata": {
+        "status": "ok",
+        "valid": true,
+        "confidence": 0.7,
+        "evidence_count": 1,
+        "citations": [
+          {
+            "citation_id": 1,
+            "file_name": "phoenix_evaluation.pdf",
+            "source_path": "phoenix_evaluation.pdf",
+            "score": 0.5
+          }
+        ]
+      },
+      "reasons": []
+    },
+    {
+      "id": "MEM-STORE",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 0.023,
+      "intent": "memory",
+      "selected_agent": "memory",
+      "response": "Memory stored successfully.",
+      "metadata": {
+        "status": "ok",
+        "valid": true
+      },
+      "reasons": []
+    },
+    {
+      "id": "MEM-RECALL",
+      "passed": true,
+      "status_code": 200,
+      "latency_seconds": 0.044,
+      "intent": "memory",
+      "selected_agent": "memory",
+      "response": "Recalled the Phoenix project memory fact.",
+      "metadata": {
+        "status": "ok",
+        "valid": true
+      },
+      "reasons": []
+    }
+  ],
+  "_fixture_note": "Validation fixture reconstructed from the committed evaluation summary and visible result metadata; live rerun is performed by evaluation/scripts/run_live_evaluation.py in a configured Phoenix environment."
+}

@@ -1,0 +1,381 @@
+{
+  "schema_version": "1.0",
+  "source_type": "live_e2e_result",
+  "source_suite": "Phoenix AI Real-World E2E Evaluation v3",
+  "source_timestamp": "2026-10-05T18:43:42Z",
+  "source_pass_rate": 1.0,
+  "measured_metrics": {
+    "retrieval_relevance_rate_percent": 100.0,
+    "retrieval_relevance_definition": "Share of answerable RAG cases with at least one citation whose file/source basename matches the expected evaluation document.",
+    "grounding_validation_pass_rate_percent": 100.0,
+    "grounding_definition": "Share of RAG cases where Phoenix metadata.valid matches the case answerability expectation (true for answerable, false for unanswerable).",
+    "citation_completeness_percent": 100.0,
+    "citation_completeness_definition": "Share of answerable RAG cases containing at least one citation.",
+    "citation_correctness_percent": 100.0,
+    "citation_correctness_definition": "Share of answerable RAG cases with at least one citation pointing to the expected evaluation document.",
+    "answer_expected_term_coverage_percent": 100.0,
+    "abstention_and_fail_closed_accuracy_percent": 100.0,
+    "confidence_mean": 0.6782135765469098,
+    "latency_seconds": {
+      "count": 14,
+      "mean_seconds": 2.159142857142857,
+      "median_seconds": 3.032,
+      "p50_seconds": 3.032,
+      "p95_seconds": 3.8145499999999997,
+      "p99_seconds": 4.14371,
+      "rag_mean_seconds": 3.343,
+      "rag_p95_seconds": 3.9728
+    },
+    "stage_timings_seconds": {
+      "agent.application": {
+        "count": 2,
+        "mean_seconds": 0.004634,
+        "p50_seconds": 0.004633999999999999,
+        "p95_seconds": 0.007612999999999998,
+        "p99_seconds": 0.007877799999999999,
+        "max_seconds": 0.007944
+      },
+      "agent.memory": {
+        "count": 4,
+        "mean_seconds": 0.0073135,
+        "p50_seconds": 0.0065745,
+        "p95_seconds": 0.013926899999999996,
+        "p99_seconds": 0.014869379999999998,
+        "max_seconds": 0.015105
+      },
+      "agent.rag": {
+        "count": 9,
+        "mean_seconds": 3.306837333333333,
+        "p50_seconds": 3.306788,
+        "p95_seconds": 3.9466372,
+        "p99_seconds": 4.14816424,
+        "max_seconds": 4.198546
+      },
+      "citation_build": {
+        "count": 18,
+        "mean_seconds": 8.43888823605246e-06,
+        "p50_seconds": 6e-06,
+        "p95_seconds": 2.4575010142289102e-05,
+        "p99_seconds": 2.491500202845782e-05,
+        "max_seconds": 2.5e-05
+      },
+      "classification": {
+        "count": 16,
+        "mean_seconds": 3.6875e-05,
+        "p50_seconds": 9.5e-06,
+        "p95_seconds": 0.00013424999999999998,
+        "p99_seconds": 0.00036524999999999985,
+        "max_seconds": 0.000423
+      },
+      "context_build": {
+        "count": 18,
+        "mean_seconds": 2.8044447905487488e-05,
+        "p50_seconds": 2.7900018529966475e-05,
+        "p95_seconds": 3.804500008951873e-05,
+        "p99_seconds": 3.824900049533695e-05,
+        "max_seconds": 3.8300000596791506e-05
+      },
+      "document_prepare": {
+        "count": 18,
+        "mean_seconds": 0.47676613889466346,
+        "p50_seconds": 0.43016794999546,
+        "p95_seconds": 0.6922598300325554,
+        "p99_seconds": 0.6922599660065111,
+        "max_seconds": 0.69226
+      },
+      "document_total": {
+        "count": 18,
+        "mean_seconds": 3.3065593944507037,
+        "p50_seconds": 3.306504150019398,
+        "p95_seconds": 4.198273915019716,
+        "p99_seconds": 4.198273983003943,
+        "max_seconds": 4.198274
+      },
+      "generation": {
+        "count": 18,
+        "mean_seconds": 2.1102442277790283,
+        "p50_seconds": 1.9792980499959327,
+        "p95_seconds": 2.9817720450045853,
+        "p99_seconds": 2.9817722490253735,
+        "max_seconds": 2.9817723000305705
+      },
+      "memory_retrieval": {
+        "count": 16,
+        "mean_seconds": 0.0203155,
+        "p50_seconds": 0.015560000000000001,
+        "p95_seconds": 0.038762,
+        "p99_seconds": 0.07837399999999997,
+        "max_seconds": 0.088277
+      },
+      "orchestration_total": {
+        "count": 16,
+        "mean_seconds": 1.88693,
+        "p50_seconds": 2.7434564999999997,
+        "p95_seconds": 3.7433405,
+        "p99_seconds": 4.1273009,
+        "max_seconds": 4.223291
+      },
+      "planning": {
+        "count": 16,
+        "mean_seconds": 1.1125e-05,
+        "p50_seconds": 3.5e-06,
+        "p95_seconds": 4.9e-05,
+        "p99_seconds": 7.299999999999999e-05,
+        "max_seconds": 7.9e-05
+      },
+      "planning_llm_calls": {
+        "count": 1,
+        "mean_seconds": 0.0,
+        "p50_seconds": 0.0,
+        "p95_seconds": 0.0,
+        "p99_seconds": 0.0,
+        "max_seconds": 0.0
+      },
+      "planning_llm_total": {
+        "count": 1,
+        "mean_seconds": 0.0,
+        "p50_seconds": 0.0,
+        "p95_seconds": 0.0,
+        "p99_seconds": 0.0,
+        "max_seconds": 0.0
+      },
+      "rag_total": {
+        "count": 18,
+        "mean_seconds": 2.8297932555560403,
+        "p50_seconds": 2.780535799986759,
+        "p95_seconds": 3.7681060000048414,
+        "p99_seconds": 3.768106000026789,
+        "max_seconds": 3.768106000032276
+      },
+      "retrieval": {
+        "count": 18,
+        "mean_seconds": 0.7194425333343805,
+        "p50_seconds": 0.7862131000077408,
+        "p95_seconds": 0.9286905750285206,
+        "p99_seconds": 0.9286909150057041,
+        "max_seconds": 0.928691
+      },
+      "validation": {
+        "count": 18,
+        "mean_seconds": 6.65166642970095e-05,
+        "p50_seconds": 5.324999996088445e-05,
+        "p95_seconds": 0.0001430149975532666,
+        "p99_seconds": 0.00014308298646140843,
+        "max_seconds": 0.0001430999836884439
+      }
+    },
+    "stage_timing_coverage_percent": 100.0,
+    "stage_timing_bottleneck": [
+      "agent.rag",
+      {
+        "count": 9,
+        "mean_seconds": 3.306837333333333,
+        "p50_seconds": 3.306788,
+        "p95_seconds": 3.9466372,
+        "p99_seconds": 4.14816424,
+        "max_seconds": 4.198546
+      }
+    ],
+    "phase1_quality_score_percent": 100.0
+  },
+  "suite_counts": {
+    "results_present": 16,
+    "passed": 16,
+    "total": 16,
+    "answerable_rag_cases": 8,
+    "unanswerable_rag_cases": 1
+  },
+  "case_metrics": [
+    {
+      "id": "RAG-TXT-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "qdrant"
+      ],
+      "matched_terms": [
+        "qdrant"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.8922222222222221,
+      "latency_seconds": 3.582
+    },
+    {
+      "id": "RAG-TXT-02",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "rrf"
+      ],
+      "matched_terms": [
+        "rrf"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.9247252747252748,
+      "latency_seconds": 3.203
+    },
+    {
+      "id": "RAG-DOCX-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "qwen3:4b-instruct"
+      ],
+      "matched_terms": [
+        "qwen3:4b-instruct"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.8099999999999999,
+      "latency_seconds": 3.46
+    },
+    {
+      "id": "RAG-PDF-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "nomic-embed-text"
+      ],
+      "matched_terms": [
+        "nomic-embed-text"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.7649999999999999,
+      "latency_seconds": 3.334
+    },
+    {
+      "id": "RAG-PPTX-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "approval"
+      ],
+      "matched_terms": [
+        "approval"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.6666666666666666,
+      "latency_seconds": 2.625
+    },
+    {
+      "id": "RAG-XLSX-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "768"
+      ],
+      "matched_terms": [
+        "768"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.5485714285714285,
+      "latency_seconds": 3.593
+    },
+    {
+      "id": "RAG-XLSX-02",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "engine a",
+        "14400"
+      ],
+      "matched_terms": [
+        "engine a",
+        "14400"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.6749999999999999,
+      "latency_seconds": 2.876
+    },
+    {
+      "id": "RAG-UNKNOWN-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": null,
+      "citation_correct": true,
+      "expected_terms": [],
+      "matched_terms": [],
+      "grounding_expected_valid": false,
+      "grounding_actual_valid": false,
+      "confidence": 0.13006993006993006,
+      "latency_seconds": 4.226
+    },
+    {
+      "id": "PLAN-01",
+      "category": "planning",
+      "plan_structure_valid": true,
+      "latency_seconds": 0.021
+    },
+    {
+      "id": "APP-01",
+      "category": "application",
+      "expected_terms_present": true,
+      "execution_signal_ok": true,
+      "latency_seconds": 0.029
+    },
+    {
+      "id": "SEC-01",
+      "category": "application",
+      "fail_closed_correct": true,
+      "latency_seconds": 0.026
+    },
+    {
+      "id": "DOC-ROUTING-01",
+      "category": "rag",
+      "retrieval_provenance_match": true,
+      "citation_count": 1,
+      "citation_complete": true,
+      "citation_correct": true,
+      "expected_terms": [
+        "qdrant"
+      ],
+      "matched_terms": [
+        "qdrant"
+      ],
+      "grounding_expected_valid": true,
+      "grounding_actual_valid": true,
+      "confidence": 0.6916666666666667,
+      "latency_seconds": 3.188
+    },
+    {
+      "id": "MEM-STORE",
+      "category": "memory",
+      "passed": true,
+      "latency_seconds": 0.022
+    },
+    {
+      "id": "MEM-RECALL",
+      "category": "memory",
+      "passed": true,
+      "latency_seconds": 0.043
+    }
+  ]
+}

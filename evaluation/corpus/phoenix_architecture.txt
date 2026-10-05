@@ -1,7 +1,3 @@
-Phoenix AI Evaluation Document
-
 Phoenix AI uses Qdrant as its vector database.
-The local generation model is qwen3:4b-instruct served through Ollama.
-Dense retrieval uses Nomic Embed Text with 768-dimensional embeddings.
-Hybrid retrieval combines dense retrieval and BM25 using Reciprocal Rank Fusion (RRF).
-The RAG pipeline supports PDF, DOCX, XLSX, PPTX, CSV and TXT documents.
+Phoenix AI combines dense and lexical retrieval using Reciprocal Rank Fusion (RRF).
+Phoenix AI uses local-first architecture and evidence-grounded answers.
