@@ -1,4 +1,7 @@
 import uuid
+from time import perf_counter
+
+from app.core.telemetry import add_timing
 
 from app.agents.application_agent import ApplicationControlAgent
 from app.core.security import SecurityPolicy
@@ -32,7 +35,12 @@ class PhoenixOrchestrator:
         self.rag_engine = rag_engine or build_rag_engine(self.settings)
 
         self.agents = {
-            "planning": PlanningAgent(llm),
+            "planning": PlanningAgent(
+                llm,
+                fast_path_enabled=self.settings.planning_fast_path_enabled,
+                max_llm_attempts=self.settings.planning_max_llm_attempts,
+                max_tokens=self.settings.planning_max_tokens,
+            ),
             "rag": RAGAgent(self.rag_engine),
             "research": ResearchAgent(
                 llm,
@@ -65,7 +73,11 @@ class PhoenixOrchestrator:
             "metadata": dict(metadata or {}),
         }
         logger.info("Phoenix request started: request_id=%s", request_id)
+        started = perf_counter()
         result = await self.graph.ainvoke(state)
+        metadata_result = dict(result.get("metadata") or {})
+        add_timing(metadata_result, "orchestration_total", perf_counter() - started)
+        result["metadata"] = metadata_result
 
         # The orchestrator owns the final API contract. Keep this boundary
         # normalization independent from individual graph nodes so a graph
@@ -159,10 +171,12 @@ class PhoenixOrchestrator:
             memory_context=state.get("memory_context", []),
         )
 
+        started = perf_counter()
         result = await self.agents[agent_name].run(
             state["user_message"],
             context,
         )
+        add_timing(state["metadata"], f"agent.{agent_name}", perf_counter() - started)
 
         state["response"] = result.content
 
@@ -173,6 +187,15 @@ class PhoenixOrchestrator:
         result_data = dict(result.data or {})
 
         state["metadata"].update(result_data)
+
+        # Normalize agent-local performance timings into the canonical
+        # stage_timings bucket used by the evaluation/observability layer.
+        # Keep performance_timings too for backward compatibility.
+        performance_timings = result_data.get("performance_timings")
+        if isinstance(performance_timings, dict):
+            for stage, seconds in performance_timings.items():
+                if isinstance(seconds, (int, float)) and seconds >= 0:
+                    add_timing(state["metadata"], str(stage), float(seconds))
 
         # --------------------------------------------------
         # Agent failure handling
