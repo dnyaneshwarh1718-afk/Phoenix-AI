@@ -127,6 +127,14 @@ class LLMGateway:
         if request.json_mode:
             payload["format"] = "json"
 
+        # Qwen3 can spend substantial time in reasoning mode for structured
+        # planning. Phoenix planning is a bounded orchestration task, not an
+        # open-ended reasoning task, so disable hidden thinking for the local
+        # planning path. This keeps the plan contract deterministic and
+        # dramatically reduces tail latency on small local models.
+        if request.task_type == "reasoning":
+            payload["think"] = False
+
         if request.max_tokens is not None:
             payload["options"]["num_predict"] = request.max_tokens
 
