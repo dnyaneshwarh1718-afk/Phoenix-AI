@@ -1,121 +1,52 @@
-# Phoenix AI — Phase 0 + Phase 1
+# Phoenix AI — Phase 1 Quantitative Evaluation
 
-A production-oriented foundation for a multipurpose agentic AI system.
+Phoenix AI is a local-first modular agentic AI platform. This package contains the current application foundation plus the Phase 1 evaluation layer.
 
-## Included
+## Phase 1 goal
 
-- FastAPI API
-- CLI chat interface
-- Configuration management with Pydantic Settings
-- Structured logging
-- Pluggable LLM Gateway using LiteLLM
-- OpenAI / Anthropic / Gemini provider support
-- Model routing
-- Base Agent abstraction
-- Phoenix Orchestrator
-- LangGraph workflow
-- Typed conversation state
-- Tool registry foundation
-- Safety/approval foundation
-- Health endpoint
-- Unit tests
-- Docker foundation
+Turn the existing real-world E2E evaluation into reproducible quantitative metrics:
 
-## Quick start
+- Retrieval relevance (provenance-based)
+- Grounding validation pass rate
+- Citation completeness
+- Citation correctness
+- Expected-term coverage
+- Abstention / fail-closed accuracy
+- Mean / P50 / P95 / P99 latency
+- Composite Phase 1 score
 
-### 1. Create environment
+## Run
 
-Windows PowerShell:
+Install the project dependencies:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-copy .env.example .env
 ```
 
-Linux/macOS:
+Run the evaluator against a completed live E2E result:
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
+```powershell
+python -m evaluation.scripts.run_quantitative_evaluation `
+  --results evaluation/results/latest.json
 ```
 
-### 2. Configure `.env`
+Outputs:
 
-At minimum configure one provider:
+- `evaluation/results/latest_quantitative.json`
+- `evaluation/results/latest_quantitative.md`
 
-```env
-OPENAI_API_KEY=your_key
+## Important metric boundary
+
+The current E2E result schema contains citations but not the complete ranked candidate list with gold chunk labels. Therefore this phase reports **provenance-based retrieval relevance**, not Precision@K/Recall@K/MRR/nDCG. Those metrics are the next instrumentation upgrade once ranked candidate lists and gold chunk IDs are persisted.
+
+## Validation
+
+The quantitative evaluator is dependency-light and can be tested independently:
+
+```powershell
+pytest tests/test_quantitative_evaluation.py -q
 ```
 
-The gateway can also use:
-
-```env
-ANTHROPIC_API_KEY=your_key
-GEMINI_API_KEY=your_key
-```
-
-### 3. Run API
-
-```bash
-uvicorn app.api.main:app --reload
-```
-
-Open:
-
-- http://127.0.0.1:8000
-- http://127.0.0.1:8000/docs
-- http://127.0.0.1:8000/health
-
-### 4. Run CLI
-
-```bash
-python -m app.cli
-```
-
-## Example API request
-
-```json
-POST /api/v1/chat
-{
-  "message": "Explain what Phoenix AI is"
-}
-```
-
-## Architecture
-
-```text
-User
-  |
-  v
-FastAPI / CLI
-  |
-  v
-Phoenix Orchestrator
-  |
-  +--> Planning / routing
-  |
-  +--> Agent registry
-  |
-  +--> Tool registry
-  |
-  +--> LLM Gateway
-  |
-  v
-Response
-```
-
-## Next phases
-
-Phase 2: advanced hybrid RAG
-Phase 3: real tools and filesystem
-Phase 4: application automation
-Phase 5: MCP
-Phase 6: vision
-Phase 7: persistent memory
-Phase 8: autonomous execution
-Phase 9: evaluation/observability
-Phase 10: production deployment
+The package also retains the existing Phoenix application and test suite. Full runtime validation requires the configured Python dependencies, Ollama, and Qdrant environment used by Phoenix.
