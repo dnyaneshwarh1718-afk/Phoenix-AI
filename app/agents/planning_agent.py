@@ -173,13 +173,13 @@ class PlanningAgent(BaseAgent):
             "analyz", "analyse", "analyze", "dataset", "revenue",
             "top products", "highest revenue", "sales data",
         )
-        if "execution plan" not in text or not any(marker in text for marker in analysis_markers):
+        if not any(marker in text for marker in analysis_markers):
             return None
         steps = (
             PlanStep(
                 "step_1",
-                "Inspect the dataset",
-                "Identify the dataset structure, columns, data types, and available sales/revenue fields before analysis.",
+                "Inspect the provided sales dataset",
+                "Inspect the provided Excel sales dataset and identify its sheets, columns, data types, and available sales/revenue fields before analysis.",
                 "application",
             ),
             PlanStep(
