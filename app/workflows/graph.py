@@ -9,6 +9,7 @@ from langgraph.graph import END, START, StateGraph
 
 from app.agents.base_agent import AgentContext
 from app.orchestrator.state import PhoenixState
+from app.workflows.plan_executor import PlanExecutor
 
 
 # ======================================================================
@@ -70,6 +71,16 @@ def build_phoenix_graph(orchestrator):
         _build_execute_node(orchestrator),
     )
 
+    graph.add_node(
+        "verify",
+        _build_verify_node(orchestrator),
+    )
+
+    graph.add_node(
+        "memory_update",
+        _build_memory_update_node(orchestrator),
+    )
+
     # ------------------------------------------------------------------
     # Edges
     # ------------------------------------------------------------------
@@ -101,6 +112,16 @@ def build_phoenix_graph(orchestrator):
 
     graph.add_edge(
         "execute",
+        "verify",
+    )
+
+    graph.add_edge(
+        "verify",
+        "memory_update",
+    )
+
+    graph.add_edge(
+        "memory_update",
         END,
     )
 
@@ -240,6 +261,8 @@ def _build_plan_node(orchestrator):
             )
             metadata = dict(result.get("metadata") or {})
             add_timing(metadata, "planning", perf_counter() - started)
+            result["plan_data"] = metadata.get("plan") if isinstance(metadata.get("plan"), dict) else None
+            result["execute_plan"] = False
             return {**result, "metadata": metadata}
 
         # RAG requests should go directly to retrieval.
@@ -258,6 +281,9 @@ def _build_plan_node(orchestrator):
             )
             metadata = dict(result.get("metadata") or {})
             add_timing(metadata, "planning", perf_counter() - started)
+            plan_data = metadata.get("plan") if isinstance(metadata.get("plan"), dict) else None
+            result["plan_data"] = plan_data
+            result["execute_plan"] = bool(plan_data and metadata.get("status") == "ready")
             return {**result, "metadata": metadata}
 
         metadata = dict(state.get("metadata") or {})
@@ -322,36 +348,138 @@ def _requires_planning(
 
 
 def _build_execute_node(orchestrator):
-    """
-    Create the execution node.
-    """
+    """Execute the selected agent or a validated multi-agent plan."""
 
-    async def execute(
-        state: PhoenixState,
-    ) -> PhoenixState:
-
-        intent = state.get(
-            "intent",
-            "general",
-        )
-
-        # General assistant.
-        if intent == "general":
-            return await orchestrator.execute_general(
-                state
-            )
-
-        # Planning is already complete.
-        # PlanningAgent creates plans; it does not execute them.
-        if intent == "planning":
+    async def execute(state: PhoenixState) -> PhoenixState:
+        # Explicit planning requests remain plan-only.
+        if state.get("intent") == "planning":
             return state
 
-        # Execute specialized agent.
-        return await orchestrator.execute_specialized(
-            state
-        )
+        # Phase 2 closed-loop execution: complex requests are planned first,
+        # then dispatched through the same specialized agents used by direct
+        # routing.
+        if (
+            state.get("execute_plan")
+            and state.get("plan_data")
+            and orchestrator.settings.phase2_closed_loop_enabled
+        ):
+            executor = PlanExecutor(orchestrator)
+            result = await executor.execute(state["plan_data"], state)
+            metadata = dict(state.get("metadata") or {})
+            metadata["plan_execution"] = result
+            metadata["execution_status"] = result.get("status")
+            trace = result.get("steps") or []
+            return {
+                **state,
+                "execution_trace": trace,
+                "response": _render_plan_execution(result),
+                "metadata": metadata,
+            }
+
+        intent = state.get("intent", "general")
+        if intent == "general":
+            return await orchestrator.execute_general(state)
+
+        return await orchestrator.execute_specialized(state)
 
     return execute
+
+
+def _render_plan_execution(result: dict) -> str:
+    status = result.get("status", "unknown")
+    steps = result.get("steps") or []
+    if not steps:
+        return f"Plan execution status: {status}."
+    lines = [f"Plan execution status: {status}."]
+    for step in steps:
+        marker = "✓" if step.get("success") else "✗"
+        content = (step.get("response") or "").strip()
+        summary = content[:500] if content else step.get("status", "unknown")
+        lines.append(f"{marker} {step.get('step_id')}: {summary}")
+    return "\n".join(lines)
+
+
+def _build_verify_node(orchestrator):
+    """Perform deterministic post-execution verification without an LLM."""
+
+    def verify(state: PhoenixState) -> PhoenixState:
+        metadata = dict(state.get("metadata") or {})
+        status = metadata.get("execution_status")
+        intent = state.get("intent", "general")
+
+        if state.get("execute_plan"):
+            ok = status == "completed"
+        elif intent == "planning":
+            ok = metadata.get("status") in {"ready", "blocked"} and not state.get("error")
+        elif intent == "application":
+            action = metadata.get("execution") or {}
+            # A blocked action with executed=false is a valid safety outcome.
+            action_status = action.get("status")
+            if action_status == "blocked":
+                ok = action.get("executed") is False
+            else:
+                ok = not state.get("error") and action_status in {None, "executed"}
+        elif intent == "rag":
+            ok = metadata.get("status") not in {"unverified", "failed"} and not state.get("error")
+        elif intent == "research":
+            ok = metadata.get("status") not in {"unverified", "search_failed", "synthesis_failed"} and not state.get("error")
+        elif intent == "memory":
+            ok = metadata.get("status") not in {"storage_error", "invalid"} and not state.get("error")
+        else:
+            ok = bool(state.get("response")) and not state.get("error")
+
+        metadata["verification"] = {
+            "status": "passed" if ok else "failed",
+            "verified": bool(ok),
+            "mode": "deterministic",
+        }
+        return {**state, "verification": metadata["verification"], "metadata": metadata}
+
+    return verify
+
+
+def _build_memory_update_node(orchestrator):
+    """Persist a compact task outcome after successful execution."""
+
+    def memory_update(state: PhoenixState) -> PhoenixState:
+        metadata = dict(state.get("metadata") or {})
+        if not orchestrator.settings.memory_auto_capture:
+            metadata["memory_update"] = {"status": "disabled"}
+            return {**state, "metadata": metadata}
+
+        # Explicit MemoryAgent operations already write their own durable fact.
+        # Do not duplicate them as task outcomes.
+        if state.get("intent") == "memory":
+            metadata["memory_update"] = {"status": "handled_by_memory_agent"}
+            return {**state, "metadata": metadata}
+
+        verification = state.get("verification") or {}
+        if verification.get("verified") and state.get("execute_plan"):
+            try:
+                record = orchestrator.memory_store.add(
+                    user_id=state.get("user_id", "default"),
+                    project_id=state.get("project_id"),
+                    kind="task_outcome",
+                    content=(
+                        f"Task: {state.get('user_message', '').strip()}\n"
+                        f"Outcome: {(state.get('response') or '').strip()[:1500]}"
+                    ),
+                    source="orchestrator_task_outcome",
+                    importance=0.4,
+                    metadata={
+                        "request_id": state.get("request_id"),
+                        "intent": state.get("intent"),
+                    },
+                )
+                metadata["memory_update"] = {"status": "stored", "memory_id": record.memory_id}
+            except Exception as exc:
+                metadata["memory_update"] = {"status": "failed", "error": f"{type(exc).__name__}: {exc}"}
+        else:
+            metadata["memory_update"] = {"status": "not_required"}
+
+        return {**state, "metadata": metadata}
+
+    return memory_update
 
 
 # ======================================================================
