@@ -27,5 +27,7 @@ async def chat(payload: ChatRequest, request: Request):
         selected_agent=result.get("selected_agent", "unknown"),
         response=result.get("response", ""),
         plan=result.get("plan"),
+        execution_trace=result.get("execution_trace", []),
+        verification=result.get("verification", {}),
         metadata=result.get("metadata", {}),
     )

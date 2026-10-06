@@ -18,4 +18,6 @@ class ChatResponse(BaseModel):
     selected_agent: str
     response: str
     plan: str | None = None
+    execution_trace: list[dict] = Field(default_factory=list)
+    verification: dict = Field(default_factory=dict)
     metadata: dict = Field(default_factory=dict)
