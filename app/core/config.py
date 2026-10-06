@@ -38,6 +38,7 @@ class Settings(BaseSettings):
     planning_fast_path_enabled: bool = True
     planning_max_llm_attempts: int = 2
     planning_max_tokens: int = 384
+    phase2_closed_loop_enabled: bool = True
 
     # RESEARCH
     research_search_endpoint: str = "https://html.duckduckgo.com/html/"
