@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "source_type": "live_e2e_result",
   "source_suite": "Phoenix AI Real-World E2E Evaluation v3",
-  "source_timestamp": "2026-10-05T18:43:42Z",
+  "source_timestamp": "2026-10-05T19:17:03Z",
   "source_pass_rate": 1.0,
   "measured_metrics": {
     "retrieval_relevance_rate_percent": 100.0,
@@ -18,109 +18,109 @@
     "confidence_mean": 0.6782135765469098,
     "latency_seconds": {
       "count": 14,
-      "mean_seconds": 2.159142857142857,
-      "median_seconds": 3.032,
-      "p50_seconds": 3.032,
-      "p95_seconds": 3.8145499999999997,
-      "p99_seconds": 4.14371,
-      "rag_mean_seconds": 3.343,
-      "rag_p95_seconds": 3.9728
+      "mean_seconds": 2.1942857142857144,
+      "median_seconds": 2.988,
+      "p50_seconds": 2.988,
+      "p95_seconds": 4.00455,
+      "p99_seconds": 4.31291,
+      "rag_mean_seconds": 3.391888888888889,
+      "rag_p95_seconds": 4.1528
     },
     "stage_timings_seconds": {
       "agent.application": {
         "count": 2,
-        "mean_seconds": 0.004634,
-        "p50_seconds": 0.004633999999999999,
-        "p95_seconds": 0.007612999999999998,
-        "p99_seconds": 0.007877799999999999,
-        "max_seconds": 0.007944
+        "mean_seconds": 0.0022115,
+        "p50_seconds": 0.0022115,
+        "p95_seconds": 0.004124449999999999,
+        "p99_seconds": 0.00429449,
+        "max_seconds": 0.004337
       },
       "agent.memory": {
         "count": 4,
-        "mean_seconds": 0.0073135,
-        "p50_seconds": 0.0065745,
-        "p95_seconds": 0.013926899999999996,
-        "p99_seconds": 0.014869379999999998,
-        "max_seconds": 0.015105
+        "mean_seconds": 0.009295,
+        "p50_seconds": 0.007997,
+        "p95_seconds": 0.019007549999999998,
+        "p99_seconds": 0.020020709999999997,
+        "max_seconds": 0.020274
       },
       "agent.rag": {
         "count": 9,
-        "mean_seconds": 3.306837333333333,
-        "p50_seconds": 3.306788,
-        "p95_seconds": 3.9466372,
-        "p99_seconds": 4.14816424,
-        "max_seconds": 4.198546
+        "mean_seconds": 3.3641430000000003,
+        "p50_seconds": 3.289425,
+        "p95_seconds": 4.1329872,
+        "p99_seconds": 4.32347264,
+        "max_seconds": 4.371094
       },
       "citation_build": {
         "count": 18,
-        "mean_seconds": 8.43888823605246e-06,
-        "p50_seconds": 6e-06,
-        "p95_seconds": 2.4575010142289102e-05,
-        "p99_seconds": 2.491500202845782e-05,
-        "max_seconds": 2.5e-05
+        "mean_seconds": 5.722221160307527e-06,
+        "p50_seconds": 5.850021701306105e-06,
+        "p95_seconds": 7.659999713115393e-06,
+        "p99_seconds": 7.931999942623077e-06,
+        "max_seconds": 8e-06
       },
       "classification": {
         "count": 16,
-        "mean_seconds": 3.6875e-05,
-        "p50_seconds": 9.5e-06,
-        "p95_seconds": 0.00013424999999999998,
-        "p99_seconds": 0.00036524999999999985,
-        "max_seconds": 0.000423
+        "mean_seconds": 6.06875e-05,
+        "p50_seconds": 2.95e-05,
+        "p95_seconds": 0.00027425,
+        "p99_seconds": 0.00029884999999999997,
+        "max_seconds": 0.000305
       },
       "context_build": {
         "count": 18,
-        "mean_seconds": 2.8044447905487488e-05,
-        "p50_seconds": 2.7900018529966475e-05,
-        "p95_seconds": 3.804500008951873e-05,
-        "p99_seconds": 3.824900049533695e-05,
-        "max_seconds": 3.8300000596791506e-05
+        "mean_seconds": 2.5194440436652965e-05,
+        "p50_seconds": 2.194999606721103e-05,
+        "p95_seconds": 5.3029999645613137e-05,
+        "p99_seconds": 5.316599803905934e-05,
+        "max_seconds": 5.319999763742089e-05
       },
       "document_prepare": {
         "count": 18,
-        "mean_seconds": 0.47676613889466346,
-        "p50_seconds": 0.43016794999546,
-        "p95_seconds": 0.6922598300325554,
-        "p99_seconds": 0.6922599660065111,
-        "max_seconds": 0.69226
+        "mean_seconds": 0.48895176666477713,
+        "p50_seconds": 0.46288999998306857,
+        "p95_seconds": 0.7522827450303629,
+        "p99_seconds": 0.7522829490060726,
+        "max_seconds": 0.752283
       },
       "document_total": {
         "count": 18,
-        "mean_seconds": 3.3065593944507037,
-        "p50_seconds": 3.306504150019398,
-        "p95_seconds": 4.198273915019716,
-        "p99_seconds": 4.198273983003943,
-        "max_seconds": 4.198274
+        "mean_seconds": 3.3638446777692455,
+        "p50_seconds": 3.289094199975932,
+        "p95_seconds": 4.370857999958446,
+        "p99_seconds": 4.3708579999916894,
+        "max_seconds": 4.370858
       },
       "generation": {
         "count": 18,
-        "mean_seconds": 2.1102442277790283,
-        "p50_seconds": 1.9792980499959327,
-        "p95_seconds": 2.9817720450045853,
-        "p99_seconds": 2.9817722490253735,
-        "max_seconds": 2.9817723000305705
+        "mean_seconds": 2.0506688833360176,
+        "p50_seconds": 1.9374259500089215,
+        "p95_seconds": 2.929306060001275,
+        "p99_seconds": 2.9293063320070547,
+        "max_seconds": 2.9293064000084996
       },
       "memory_retrieval": {
         "count": 16,
-        "mean_seconds": 0.0203155,
-        "p50_seconds": 0.015560000000000001,
-        "p95_seconds": 0.038762,
-        "p99_seconds": 0.07837399999999997,
-        "max_seconds": 0.088277
+        "mean_seconds": 0.017420125,
+        "p50_seconds": 0.014856000000000001,
+        "p95_seconds": 0.026638750000000003,
+        "p99_seconds": 0.02710135,
+        "max_seconds": 0.027217
       },
       "orchestration_total": {
         "count": 16,
-        "mean_seconds": 1.88693,
-        "p50_seconds": 2.7434564999999997,
-        "p95_seconds": 3.7433405,
-        "p99_seconds": 4.1273009,
-        "max_seconds": 4.223291
+        "mean_seconds": 1.918391625,
+        "p50_seconds": 2.8296989999999997,
+        "p95_seconds": 3.9423355,
+        "p99_seconds": 4.2984607,
+        "max_seconds": 4.387492
       },
       "planning": {
         "count": 16,
-        "mean_seconds": 1.1125e-05,
-        "p50_seconds": 3.5e-06,
-        "p95_seconds": 4.9e-05,
-        "p99_seconds": 7.299999999999999e-05,
+        "mean_seconds": 1.1375e-05,
+        "p50_seconds": 4.000000000000001e-06,
+        "p95_seconds": 3.9999999999999996e-05,
+        "p99_seconds": 7.119999999999997e-05,
         "max_seconds": 7.9e-05
       },
       "planning_llm_calls": {
@@ -141,27 +141,27 @@
       },
       "rag_total": {
         "count": 18,
-        "mean_seconds": 2.8297932555560403,
-        "p50_seconds": 2.780535799986759,
-        "p95_seconds": 3.7681060000048414,
-        "p99_seconds": 3.768106000026789,
-        "max_seconds": 3.768106000032276
+        "mean_seconds": 2.874893022215579,
+        "p50_seconds": 2.85493089998916,
+        "p95_seconds": 3.8893756599781555,
+        "p99_seconds": 3.889375931995631,
+        "max_seconds": 3.889376
       },
       "retrieval": {
         "count": 18,
-        "mean_seconds": 0.7194425333343805,
-        "p50_seconds": 0.7862131000077408,
-        "p95_seconds": 0.9286905750285206,
-        "p99_seconds": 0.9286909150057041,
-        "max_seconds": 0.928691
+        "mean_seconds": 0.824128111108805,
+        "p50_seconds": 0.917420900009295,
+        "p95_seconds": 0.9893340450065989,
+        "p99_seconds": 0.9893342490365139,
+        "max_seconds": 0.9893343000439927
       },
       "validation": {
         "count": 18,
-        "mean_seconds": 6.65166642970095e-05,
-        "p50_seconds": 5.324999996088445e-05,
-        "p95_seconds": 0.0001430149975532666,
-        "p99_seconds": 0.00014308298646140843,
-        "max_seconds": 0.0001430999836884439
+        "mean_seconds": 6.156666827781334e-05,
+        "p50_seconds": 5.2099995011463756e-05,
+        "p95_seconds": 0.00012400000193119048,
+        "p99_seconds": 0.00012400001068592071,
+        "max_seconds": 0.00012400001287460327
       }
     },
     "stage_timing_coverage_percent": 100.0,
@@ -169,11 +169,11 @@
       "agent.rag",
       {
         "count": 9,
-        "mean_seconds": 3.306837333333333,
-        "p50_seconds": 3.306788,
-        "p95_seconds": 3.9466372,
-        "p99_seconds": 4.14816424,
-        "max_seconds": 4.198546
+        "mean_seconds": 3.3641430000000003,
+        "p50_seconds": 3.289425,
+        "p95_seconds": 4.1329872,
+        "p99_seconds": 4.32347264,
+        "max_seconds": 4.371094
       }
     ],
     "phase1_quality_score_percent": 100.0
@@ -202,7 +202,7 @@
       "grounding_expected_valid": true,
       "grounding_actual_valid": true,
       "confidence": 0.8922222222222221,
-      "latency_seconds": 3.582
+      "latency_seconds": 3.717
     },
     {
       "id": "RAG-TXT-02",
@@ -220,7 +220,7 @@
       "grounding_expected_valid": true,
       "grounding_actual_valid": true,
       "confidence": 0.9247252747252748,
-      "latency_seconds": 3.203
+      "latency_seconds": 3.033
     },
     {
       "id": "RAG-DOCX-01",
@@ -238,7 +238,7 @@
       "grounding_expected_valid": true,
       "grounding_actual_valid": true,
       "confidence": 0.8099999999999999,
-      "latency_seconds": 3.46
+      "latency_seconds": 3.797
     },
     {
       "id": "RAG-PDF-01",
@@ -256,7 +256,7 @@
       "grounding_expected_valid": true,
       "grounding_actual_valid": true,
       "confidence": 0.7649999999999999,
-      "latency_seconds": 3.334
+      "latency_seconds": 3.312
     },
     {
       "id": "RAG-PPTX-01",
@@ -274,7 +274,7 @@
       "grounding_expected_valid": true,
       "grounding_actual_valid": true,
       "confidence": 0.6666666666666666,
-      "latency_seconds": 2.625
+      "latency_seconds": 2.736
     },
     {
       "id": "RAG-XLSX-01",
@@ -292,7 +292,7 @@
       "grounding_expected_valid": true,
       "grounding_actual_valid": true,
       "confidence": 0.5485714285714285,
-      "latency_seconds": 3.593
+      "latency_seconds": 3.345
     },
     {
       "id": "RAG-XLSX-02",
@@ -312,7 +312,7 @@
       "grounding_expected_valid": true,
       "grounding_actual_valid": true,
       "confidence": 0.6749999999999999,
-      "latency_seconds": 2.876
+      "latency_seconds": 2.943
     },
     {
       "id": "RAG-UNKNOWN-01",
@@ -326,26 +326,26 @@
       "grounding_expected_valid": false,
       "grounding_actual_valid": false,
       "confidence": 0.13006993006993006,
-      "latency_seconds": 4.226
+      "latency_seconds": 4.39
     },
     {
       "id": "PLAN-01",
       "category": "planning",
       "plan_structure_valid": true,
-      "latency_seconds": 0.021
+      "latency_seconds": 0.024
     },
     {
       "id": "APP-01",
       "category": "application",
       "expected_terms_present": true,
       "execution_signal_ok": true,
-      "latency_seconds": 0.029
+      "latency_seconds": 0.04
     },
     {
       "id": "SEC-01",
       "category": "application",
       "fail_closed_correct": true,
-      "latency_seconds": 0.026
+      "latency_seconds": 0.034
     },
     {
       "id": "DOC-ROUTING-01",
@@ -363,19 +363,19 @@
       "grounding_expected_valid": true,
       "grounding_actual_valid": true,
       "confidence": 0.6916666666666667,
-      "latency_seconds": 3.188
+      "latency_seconds": 3.254
     },
     {
       "id": "MEM-STORE",
       "category": "memory",
       "passed": true,
-      "latency_seconds": 0.022
+      "latency_seconds": 0.039
     },
     {
       "id": "MEM-RECALL",
       "category": "memory",
       "passed": true,
-      "latency_seconds": 0.043
+      "latency_seconds": 0.056
     }
   ]
 }
