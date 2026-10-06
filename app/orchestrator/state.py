@@ -13,3 +13,7 @@ class PhoenixState(TypedDict, total=False):
     error: str | None
     metadata: dict[str, Any]
     memory_context: list[dict[str, Any]]
+    plan_data: dict[str, Any]
+    execute_plan: bool
+    execution_trace: list[dict[str, Any]]
+    verification: dict[str, Any]

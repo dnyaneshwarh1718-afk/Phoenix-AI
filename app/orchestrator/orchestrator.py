@@ -135,6 +135,11 @@ class PhoenixOrchestrator:
         memory_text = "\n".join(
             f"- {item.get('content', '')}" for item in memory_context
         ) or "No relevant prior memory was found."
+        prior_results = state.get("metadata", {}).get("plan_prior_results") or []
+        prior_text = "\n".join(
+            f"- {item.get('step_id')}: {item.get('response', '')[:1500]}"
+            for item in prior_results
+        ) or "No previous plan-step results are available."
         response = await self.llm.chat(
             ModelRequest(
                 messages=[
@@ -145,7 +150,10 @@ class PhoenixOrchestrator:
                             "Answer clearly and never claim an unavailable tool was executed. "
                             "Use the supplied memory only as prior user context; do not treat it "
                             "as authoritative external evidence. If memory is irrelevant, ignore it.\n\n"
-                            f"Relevant prior memory:\n{memory_text}"
+                            f"Relevant prior memory:\n{memory_text}\n\n"
+                            "Verified results from earlier steps in the current plan:\n"
+                            f"{prior_text}\n\n"
+                            "Use prior step results as execution context; never invent missing results."
                         ),
                     },
                     {"role": "user", "content": state["user_message"]},

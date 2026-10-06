@@ -8,9 +8,19 @@ class IntentRouter:
         text = (message or "").lower().strip()
         metadata = metadata or {}
 
-        # 1. Explicitly selected documents are authoritative for knowledge retrieval.
+        # 1. Explicitly selected documents normally imply document-scoped RAG.
+        # Complex analytical workflows are the exception: they need planning
+        # before retrieval/execution so the orchestrator can coordinate multiple
+        # steps. Keep this narrow so ordinary document questions remain RAG.
         if metadata.get("document_reference"):
-            return "rag"
+            analytical_workflow = (
+                any(re.search(rf"\b{re.escape(k)}\b", text) for k in (
+                    "analyze", "analyse", "profile", "calculate", "compute",
+                ))
+                and any(k in text for k in (" and ", " then ", "summarize", "summarise", "identify"))
+            )
+            if not analytical_workflow:
+                return "rag"
 
         # 2. Explicit web/research intent.
         if any(k in text for k in (
